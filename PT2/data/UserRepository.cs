@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using PT2.data.interfaces;
-using PT2.data.model;
 
-namespace PT2.data.repositories
+namespace PT2.data
 {
     public class UserRepository : IUserRepository { 
 

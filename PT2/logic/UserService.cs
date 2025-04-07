@@ -1,20 +1,21 @@
 ﻿using System;
-using PT2.data.interfaces;
-using PT2.data.model;
+using PT2.data;
 
-public class UserService
+namespace PT2.logic
 {
-    private IUserRepository _userRepository;
-
-    public UserService(IUserRepository userRepository)
+    public class UserService
     {
-        _userRepository = userRepository;
+        private IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
+        public User FindUser(string username)
+        {
+            return _userRepository.GetUserByUsername(username);
+        }
+
     }
-
-    public User FindUser(string username)
-    {
-        return _userRepository.GetUserByUsername(username);
-    }
-
-
 }

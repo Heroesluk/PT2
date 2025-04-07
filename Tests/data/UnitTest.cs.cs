@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using PT2.data;
-using PT2.data.model;
 
 namespace Tests.data
 {

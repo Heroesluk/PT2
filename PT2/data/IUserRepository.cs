@@ -1,9 +1,6 @@
 ﻿using System.Collections.Generic;
-using PT2.data.model;
 
-
-
-namespace PT2.data.interfaces
+namespace PT2.data
 {
     public interface IUserRepository
     {

@@ -1,9 +1,7 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting; 
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Collections.Generic;
 using System.Linq;
 using PT2.data;
-using PT2.data.repositories;
-using PT2.data.model;
 
 namespace Tests.data 
 {
