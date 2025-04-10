@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using PT2.data;
+using PT2.data.model;
 
-namespace Tests.data 
+namespace Tests.data
 {
     [TestClass]
     public class UserRepositoryTests

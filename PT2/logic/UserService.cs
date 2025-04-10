@@ -1,5 +1,6 @@
 ﻿using System;
-using PT2.data;
+using PT2.data.interfaces;
+using PT2.data.model;
 
 namespace PT2.logic
 {

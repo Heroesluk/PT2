@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PT2.Data
+namespace PT2.data.model
 {
 
     public class Item
     {
- 
+
         public int Id { get; set; }
 
         public string Name { get; set; }
@@ -18,4 +18,4 @@ namespace PT2.Data
 
         public float Price { get; set; }
     }
-}   
+}

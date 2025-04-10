@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PT2.data
+namespace PT2.data.model
 {
     public class User
     {
@@ -21,6 +21,6 @@ namespace PT2.data
         {
             return $"Id: {Id}, Username: {Username}, Email: {Email}";
         }
-    
+
     }
 }

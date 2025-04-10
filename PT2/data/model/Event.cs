@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PT2.data
+namespace PT2.data.model
 {
 
 
@@ -16,6 +16,11 @@ namespace PT2.data
         public string EventName { get; set; }
 
         public DateTime Timestamp { get; set; }
+
+        // of the user that invoked the vent
+        public int UserId { get; set; }
+
+        public string EventDesciription { get; set; }
 
     }
 
