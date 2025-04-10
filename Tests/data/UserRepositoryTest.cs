@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PT2.data;
 using PT2.data.model;
+using PT2.data.repository;
 
 namespace Tests.data
 {
@@ -11,7 +12,7 @@ namespace Tests.data
     {
         private User CreateTestUser(string username = "testuser", string password = "password", string email = "test@example.com")
         {
-            return new User(username, password, email);
+            return new User(1, username, password, email);
         }
 
         [TestMethod]

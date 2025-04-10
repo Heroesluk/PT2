@@ -8,10 +8,12 @@ namespace PT2.data.repository
 {
     public class UserRepository : IUserRepository
     {
-
-        private List<User> _users = new List<User>();
-
-        public UserRepository() { }
+        private readonly IDataContext DataContext;
+    
+        public UserRepository(IDataContext dataContext)
+        {
+            DataContext = dataContext;
+        }
 
         public User GetUserByUsername(string username)
         {
@@ -19,13 +21,14 @@ namespace PT2.data.repository
             {
                 return null;
             }
+            
 
-            return _users.First(u => u.Username.Equals(username));
+            return DataContext.Users.First(u => u.Username.Equals(username));
         }
 
         public List<User> GetAllUsers()
         {
-            return _users.ToList();
+            return DataContext.Users.ToList();
         }
 
         public void AddUser(User user)
@@ -35,17 +38,17 @@ namespace PT2.data.repository
                 throw new ArgumentNullException("User cannot be null");
             }
 
-            if (_users.Any(u => u.Username.Equals(user.Username)))
+            if (DataContext.Users.Any(u => u.Username.Equals(user.Username)))
             {
                 throw new InvalidOperationException($"User with username '{user.Username}' already exists.");
             }
 
-            _users.Add(user);
+            DataContext.Users.Add(user);
         }
 
         public bool DeleteUserByUsername(string username)
         {
-            return _users.RemoveAll(u => u.Username.Equals(username)) > 0;
+            return DataContext.Users.RemoveAll(u => u.Username.Equals(username)) > 0;
         }
     }
 }

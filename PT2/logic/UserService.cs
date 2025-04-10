@@ -18,5 +18,25 @@ namespace PT2.logic
             return _userRepository.GetUserByUsername(username);
         }
 
+        public void RegisterUser(String username, String password, String email)
+        {
+            throw new System.NotImplementedException();
+            // TODO: add somevalidation logic
+        }
+        public void LoginUser(String username, String password)
+        {
+            throw new System.NotImplementedException();
+            // TODO: add somevalidation logic
+        }
+        
+        public void RemoveUser(String username)
+        {
+            throw new System.NotImplementedException();
+            // TODO: add somevalidation logic
+        }
+        
+        
+        
+
     }
 }
