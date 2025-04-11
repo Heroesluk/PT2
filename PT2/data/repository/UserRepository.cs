@@ -31,7 +31,10 @@ namespace PT2.data.repository
             return DataContext.Users.ToList();
         }
 
-        public void AddUser(User user)
+        
+        // TODO: we should check if id exists in db, and if does throw error
+        // if it's -1 then don't throw error but replace it with some new id.
+        public int AddUser(User user)
         {
             if (user == null)
             {
@@ -44,6 +47,7 @@ namespace PT2.data.repository
             }
 
             DataContext.Users.Add(user);
+            return -1;
         }
 
         public bool DeleteUserByUsername(string username)

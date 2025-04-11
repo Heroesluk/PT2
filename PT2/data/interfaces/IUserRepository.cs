@@ -10,7 +10,7 @@ namespace PT2.data.interfaces
 
         List<User> GetAllUsers();
 
-        void AddUser(User user);
+        int AddUser(User user);
 
         bool DeleteUserByUsername(string username);
 

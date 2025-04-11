@@ -7,7 +7,7 @@ using PT2.data.model;
 
 namespace PT2.data.interfaces
 {
-    internal interface IItemRepository
+    public interface IItemRepository
     {
         void AddItem(Item item);
 
