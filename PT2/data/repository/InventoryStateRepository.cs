@@ -1,41 +1,57 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using PT2.data.interfaces;
 using PT2.data.model;
 
-namespace PT2.data.repository;
-
-public class InventoryStateRepository: IInventoryStateRepository
+namespace PT2.data.repository
 {
-    
-    private readonly IDataContext DataContext;
-    
-    public InventoryStateRepository(IDataContext dataContext)
+    public class InventoryStateRepository : IInventoryStateRepository
     {
-        DataContext = dataContext;
-    }
-    
-    public void AddInventoryState(InventoryState state)
-    {
-        throw new System.NotImplementedException();
-    }
+        private readonly IDataContext _dataContext;
 
-    public InventoryState GetInventoryState(int itemId)
-    {
-        throw new System.NotImplementedException();
-    }
+        public InventoryStateRepository(IDataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
 
-    public void UpdateInventoryState(int itemId, int newQuantity)
-    {
-        throw new System.NotImplementedException();
-    }
+        public void AddInventoryState(InventoryState state)
+        {
+            if (state == null)
+                throw new ArgumentNullException(nameof(state));
 
-    public void RemoveInventoryState(int itemId)
-    {
-        throw new System.NotImplementedException();
-    }
+            if (_dataContext.Inventory.Any(i => i.ItemId == state.ItemId))
+                throw new InvalidOperationException("Inventory state for this item already exists.");
 
-    public List<InventoryState> GetAllInventoryStates()
-    {
-        throw new System.NotImplementedException();
+            _dataContext.Inventory.Add(state);
+        }
+
+        public InventoryState GetInventoryState(int itemId)
+        {
+            return _dataContext.Inventory.FirstOrDefault(i => i.ItemId == itemId);
+        }
+
+        public void UpdateInventoryState(int itemId, int newQuantity)
+        {
+            var state = GetInventoryState(itemId);
+            if (state == null)
+                throw new InvalidOperationException("Inventory state not found.");
+
+            state.Quantity = newQuantity;
+        }
+
+        public void RemoveInventoryState(int itemId)
+        {
+            var state = GetInventoryState(itemId);
+            if (state == null)
+                throw new InvalidOperationException("Inventory state not found.");
+
+            _dataContext.Inventory.Remove(state);
+        }
+
+        public List<InventoryState> GetAllInventoryStates()
+        {
+            return _dataContext.Inventory.ToList();
+        }
     }
 }

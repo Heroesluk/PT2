@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using PT2.data.interfaces;
 using PT2.data.model;
 
@@ -20,7 +21,7 @@ public class EventRepository : IEventRepository
 
     public Event GetEvent(int eventId)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public List<Event> GetAllEvents()
