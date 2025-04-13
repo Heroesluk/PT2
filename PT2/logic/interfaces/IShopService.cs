@@ -6,9 +6,7 @@ namespace PT2.logic.interfaces
     public interface IShopService
     {
         // User Management
-        void RegisterUser(string username, string password, string email);
-        void RemoveUser(string username);
-        bool IsUserRegistered(string username);
+        
 
         // Catalog Management
         void AddItemToCatalog(int itemId, string name, string description, float price);

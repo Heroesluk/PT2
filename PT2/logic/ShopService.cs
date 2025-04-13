@@ -26,28 +26,6 @@ namespace PT2.logic
         }
 
         // User Management
-        public void RegisterUser(string username, string password, string email)
-        {
-            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(email))
-                throw new ArgumentException("Username, password, and email cannot be empty.");
-
-            if (_userRepository.GetUserByUsername(username) != null)
-                throw new InvalidOperationException("User already exists.");
-
-            var user = new User(-1, username, password, email);
-            _userRepository.AddUser(user);
-        }
-
-        public void RemoveUser(string username)
-        {
-            if (!_userRepository.DeleteUserByUsername(username))
-                throw new InvalidOperationException("User not found.");
-        }
-
-        public bool IsUserRegistered(string username)
-        {
-            return _userRepository.GetUserByUsername(username) != null;
-        }
 
         // Catalog Management
         public void AddItemToCatalog(int itemId, string name, string description, float price)

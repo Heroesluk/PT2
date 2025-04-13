@@ -33,7 +33,7 @@ namespace Tests.data
         {
             // Given
             User user = new User(1,"testUser", "securePass", "test@example.com");
-            string expectedOutput = "Username: testUser, Email: test@example.com";
+            string expectedOutput = "Id: 1, Username: testUser, Email: test@example.com";
 
             // When
             string actualOutput = user.ToString();

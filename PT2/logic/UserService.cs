@@ -13,30 +13,41 @@ namespace PT2.logic
             _userRepository = userRepository;
         }
 
+        public void RegisterUser(string username, string password, string email)
+        {
+            //empty fields check
+            if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(password) || string.IsNullOrWhiteSpace(email))
+                throw new ArgumentException("Username, password, and email cannot be empty.");
+
+            //user already exists
+            if (_userRepository.GetUserByUsername(username) != null)
+                throw new InvalidOperationException("User already exists.");
+
+            var user = new User(-1, username, password, email);
+            _userRepository.AddUser(user);
+        }
+
+        //TO DO: implement / rm - this functionality requires some kind of session mechanism
+        public void LoginUser(String username, String password)
+        {
+            throw new NotImplementedException("LoginUser method is not implemented.");
+        }
+
+        public void RemoveUser(string username)
+        {
+            if (!_userRepository.DeleteUserByUsername(username))
+                throw new InvalidOperationException("User not found.");
+        }
+
+        public bool IsUserRegistered(string username)
+        {
+            return _userRepository.GetUserByUsername(username) != null;
+        }
+
         public User FindUser(string username)
         {
             return _userRepository.GetUserByUsername(username);
         }
-
-        public void RegisterUser(String username, String password, String email)
-        {
-            throw new System.NotImplementedException();
-            // TODO: add somevalidation logic
-        }
-        public void LoginUser(String username, String password)
-        {
-            throw new System.NotImplementedException();
-            // TODO: add somevalidation logic
-        }
-        
-        public void RemoveUser(String username)
-        {
-            throw new System.NotImplementedException();
-            // TODO: add somevalidation logic
-        }
-        
-        
-        
 
     }
 }
