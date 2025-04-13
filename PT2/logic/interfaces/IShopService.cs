@@ -5,29 +5,6 @@ namespace PT2.logic.interfaces
 {
     public interface IShopService
     {
-        // User Management
-        
 
-        // Catalog Management
-        void AddItemToCatalog(int itemId, string name, string description, float price);
-        List<Item> GetAllItems();
-        Item GetItemById(int itemId);
-        void UpdateItemDetails(int itemId, string name, string description, float price);
-        void RemoveItemFromCatalog(int itemId);
-
-        // Purchase Management
-        void AddStock(int itemId, int quantity);
-        int GetItemStock(int itemId);
-        void RemoveStock(int itemId, int quantity);
-
-        // Purchase
-        void SellItem(int userId, int itemId, int quantity);
-        float CalculateTotalPrice(int itemId, int quantity);
-
-        // Event historyy
-        // TODO: replace Event abstract with concrete class.
-        List<Event> GetAllPurchaseEvents();
-        List<Event> GetUserPurchaseHistory(int userId);
-        List<Event> GetPurchaseEventsByItemId(int itemId);
     }
 }

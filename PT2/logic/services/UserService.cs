@@ -1,10 +1,11 @@
 ﻿using System;
+using PT2.logic.interfaces;
 using PT2.data.interfaces;
 using PT2.data.model;
 
-namespace PT2.logic
+namespace PT2.logic.services
 {
-    public class UserService
+    public class UserService : IUserService
     {
         private IUserRepository _userRepository;
 
@@ -28,7 +29,7 @@ namespace PT2.logic
         }
 
         //TO DO: implement / rm - this functionality requires some kind of session mechanism
-        public void LoginUser(String username, String password)
+        public void LoginUser(string username, string password)
         {
             throw new NotImplementedException("LoginUser method is not implemented.");
         }
