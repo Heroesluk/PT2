@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using PT2.data.interfaces;
 using PT2.data.model;
 
@@ -16,19 +17,29 @@ public class EventRepository : IEventRepository
 
     public void AddEvent(Event _event)
     {
-        throw new System.NotImplementedException();
+        if (_event == null)
+            throw new ArgumentNullException(nameof(_event));
+
+        DataContext.Events.Add(_event);
     }
 
     public Event GetEvent(int eventId)
     {
-        throw new NotImplementedException();
+        //TO DO: Verify
+        if (eventId < 0)
+        {
+            throw new ArgumentOutOfRangeException("Identifier cannot be negative.");
+        }
+
+        return DataContext.Events.First(e => e.EventId.Equals(eventId));
     }
 
     public List<Event> GetAllEvents()
     {
-        throw new System.NotImplementedException();
+        return DataContext.Events.ToList();
     }
 
+    //TO DO: implement
     public List<Event> GetEventsByType(string name)
     {
         throw new System.NotImplementedException();
@@ -36,6 +47,26 @@ public class EventRepository : IEventRepository
 
     public List<Event> GetEventsByUserId(int userId)
     {
-        throw new System.NotImplementedException();
+        //TO DO: Verify
+        if (userId < 0)
+        {
+            throw new ArgumentOutOfRangeException("Identifier cannot be negative.");
+        }
+
+        //TO DO: Check & Verify
+        return DataContext.Events.Where(e => {
+            //protection when Event don't contain userId (is not a PurchaseEvent for example)
+            try
+            {
+                e.UserId.Equals(userId);
+            }
+            catch
+            {
+                return false;
+            }
+
+            return e.UserId.Equals(userId);
+        }
+        ).ToList();
     }
 }
