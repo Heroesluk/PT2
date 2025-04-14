@@ -1,6 +1,6 @@
 namespace PT2.DataModel;
 
-public class IItem
+public interface IItem
 {
     public int Id { get; set; }
     public string Name { get; set; }

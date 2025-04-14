@@ -1,15 +1,12 @@
 ﻿using PT2.data.model;
 using PT2.data.repository;
+using PT2.DataModel;
 
 namespace Tests.data
 {
     [TestClass]
     public class UserRepositoryTests
     {
-        //private User CreateTestUser(string username = "testuser", string password = "password", string email = "test@example.com")
-        //{
-        //    return new User(1, username, password, email);
-        //}
 
         [TestMethod]
         public void GetUserByUsername_ExistingUser_ReturnsCorrectUser()
@@ -55,7 +52,7 @@ namespace Tests.data
             //test
             repository.AddUser(new User(-1, "Test", "qwerty", "e@e.local"));
 
-            User testUser = repository.GetUserByUsername("Test");
+            IUser testUser = repository.GetUserByUsername("Test");
 
             Assert.AreEqual(7, testUser.Id);
 

@@ -1,6 +1,6 @@
 namespace PT2.DataModel;
 
-public class IPurchaseEvent
+public interface IPurchaseEvent
 {
     
     int ItemId { get; set; }

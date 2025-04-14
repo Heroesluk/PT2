@@ -1,63 +1,121 @@
-namespace Tests.logic;
-
-using PT2.data.interfaces;
+using System;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using PT2.data.API.repository;
 using PT2.data.model;
+using PT2.DataModel;
 using PT2.logic.services;
 
 namespace Tests.logic
 {
     [TestClass]
-    public class UserServiceTests
+    public class CatalogServiceTests
     {
-        private Mock<IUserRepository> _userRepositoryMock;
-        private UserService _userService;
-
-        [TestInitialize]
-        public void Setup()
+        private class FakeItemRepository : IItemRepository
         {
-            _userRepositoryMock = new Mock<IUserRepository>();
-            _userService = new UserService(_userRepositoryMock.Object);
+            Dictionary<int, IItem> _items = new Dictionary<int, IItem>();
+
+            public void AddItem(IItem item)
+            {
+                if (item == null)
+                    throw new ArgumentNullException(nameof(item));
+
+                if (_items.ContainsKey(item.Id))
+                    throw new InvalidOperationException("Item already exists.");
+
+                _items[item.Id] = item;
+            }
+            
+            
+            public IItem GetItem(int itemId)
+            {
+                _items.TryGetValue(itemId, out var item);
+                return item;
+            }
+
+            public IEnumerable<IItem> GetAllItems()
+            {
+                return _items.Values;
+            }
+
+            public void UpdateItem(IItem item)
+            {
+                if (!_items.ContainsKey(item.Id))
+                    throw new InvalidOperationException("Item not found.");
+                _items[item.Id] = item;
+            }
+
+            public void DeleteItem(int itemId)
+            {
+                if (!_items.Remove(itemId))
+                    throw new InvalidOperationException("Item not found.");
+            }
+
+            public IItem GetItemByName(string name)
+            {
+                foreach (var item in _items.Values)
+                {
+                    if (item.Name == name)
+                        return item;
+                }
+                return null;
+            }
+
+            public List<IItem> GetItemsByPriceCutOff(float priceCutOff, string upDown)
+            {
+                var result = new List<IItem>();
+                foreach (var item in _items.Values)
+                {
+                    if ((upDown == "up" && item.Price >= priceCutOff) ||
+                        (upDown == "down" && item.Price <= priceCutOff))
+                    {
+                        result.Add(item);
+                    }
+                }
+                return result;
+            }
         }
 
         [TestMethod]
-        public void RegisterUser_ValidUser_AddsToRepository()
+        public void AddItemToCatalog_ValidItem_ShouldAddSuccessfully()
         {
-            // Arrange
-            string username = "testuser";
-            string password = "password";
-            string email = "test@example.com";
+            var fakeRepository = new FakeItemRepository();
+            var catalogService = new CatalogService(fakeRepository);
+            int itemId = 0;
+            string name = "Test Item";
+            string description = "Test Description";
+            float price = 10.0f;
 
-            // Act
-            _userService.RegisterUser(username, password, email);
-
-            // Assert
-            _userRepositoryMock.Verify(r => r.AddUser(It.Is<User>(u => 
-                    u.Username == username && 
-                    u.Password == password && 
-                    u.Email == email)), 
-                Times.Once);
+            catalogService.AddItemToCatalog(itemId, name, description, price);
+            var item = fakeRepository.GetItem(itemId);
+            Assert.IsNotNull(item);
+            Assert.AreEqual(name, item.Name);
+            Assert.AreEqual(description, item.Description);
+            Assert.AreEqual(price, item.Price);
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentException))]
-        public void RegisterUser_EmptyUsername_ThrowsException()
+        public void AddItemToCatalog_NegativePrice_ShouldThrowException()
         {
-            _userService.RegisterUser("", "password", "email@test.com");
+            var fakeRepository = new FakeItemRepository();
+            var catalogService = new CatalogService(fakeRepository);
+
+            catalogService.AddItemToCatalog(1, "Test Item", "Test Description", -5.0f);
         }
 
         [TestMethod]
-        public void IsUserRegistered_ExistingUser_ReturnsTrue()
+        public void GetItemById_ExistingItem_ShouldReturnItem()
         {
-            // Arrange
-            string username = "existingUser";
-            _userRepositoryMock.Setup(r => r.GetUserByUsername(username))
-                .Returns(new User(1, username, "pass", "email"));
+            var fakeRepository = new FakeItemRepository();
+            var catalogService = new CatalogService(fakeRepository);
+            var item = new Item { Id = 0, Name = "Test Item", Description = "Test Description", Price = 10.0f };
+            fakeRepository.AddItem(item);
 
-            // Act
-            bool result = _userService.IsUserRegistered(username);
+            var result = catalogService.GetItemById(0);
 
-            // Assert
-            Assert.IsTrue(result);
+            Assert.IsNotNull(result);
+            Assert.AreEqual(item.Name, result.Name);
         }
     }
 }
