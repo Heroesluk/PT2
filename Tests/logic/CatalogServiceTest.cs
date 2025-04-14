@@ -1,8 +1,4 @@
-using System;
-using System.Collections.Generic;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PT2.data.API.repository;
-using PT2.data.model;
 using PT2.DataModel;
 using PT2.logic.services;
 
@@ -109,7 +105,7 @@ namespace Tests.logic
         {
             var fakeRepository = new FakeItemRepository();
             var catalogService = new CatalogService(fakeRepository);
-            var item = new Item { Id = 0, Name = "Test Item", Description = "Test Description", Price = 10.0f };
+            var item = new MockItem(0, "Test Item", "Test Description", 10.0f);;
             fakeRepository.AddItem(item);
 
             var result = catalogService.GetItemById(0);

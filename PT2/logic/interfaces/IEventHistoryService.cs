@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PT2.data.model;
+﻿using System.Collections.Generic;
 using PT2.DataModel;
 
 namespace PT2.logic.interfaces

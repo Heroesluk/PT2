@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using PT2.data.interfaces;
-using PT2.data.model;
-using PT2.logic.interfaces;
+﻿using PT2.logic.interfaces;
 
 namespace PT2.logic.services
 {
