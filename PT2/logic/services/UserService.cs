@@ -1,7 +1,9 @@
 ﻿using System;
+using PT2.data.API.repository;
 using PT2.logic.interfaces;
 using PT2.data.interfaces;
 using PT2.data.model;
+using PT2.DataModel;
 
 namespace PT2.logic.services
 {
@@ -45,7 +47,7 @@ namespace PT2.logic.services
             return _userRepository.GetUserByUsername(username) != null;
         }
 
-        public User FindUser(string username)
+        public IUser FindUser(string username)
         {
             return _userRepository.GetUserByUsername(username);
         }

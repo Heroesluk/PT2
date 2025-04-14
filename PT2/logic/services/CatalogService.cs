@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using PT2.data.API.repository;
 using PT2.data.interfaces;
 using PT2.data.model;
+using PT2.DataModel;
 using PT2.logic.interfaces;
 
 namespace PT2.logic.services
@@ -28,12 +29,12 @@ namespace PT2.logic.services
             _itemRepository.AddItem(item);
         }
 
-        public List<Item> GetAllItems()
+        public List<IItem> GetAllItems()
         {
-            return new List<Item>(_itemRepository.GetAllItems());
+            return new List<IItem>(_itemRepository.GetAllItems());
         }
 
-        public Item GetItemById(int itemId)
+        public IItem GetItemById(int itemId)
         {
             var item = _itemRepository.GetItem(itemId);
             if (item == null)

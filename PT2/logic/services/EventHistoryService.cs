@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PT2.data.API.repository;
 using PT2.data.interfaces;
 using PT2.data.model;
 using PT2.data.repository;
+using PT2.DataModel;
 using PT2.logic.interfaces;
 
 namespace PT2.logic.services
@@ -19,17 +21,17 @@ namespace PT2.logic.services
             _eventRepository = eventRepository;
         }
 
-        public List<Event> GetAllPurchaseEvents()
+        public List<IEvent> GetAllPurchaseEvents()
         {
             return _eventRepository.GetAllEvents();
         }
 
-        public List<Event> GetUserPurchaseHistory(int userId)
+        public List<IEvent> GetUserPurchaseHistory(int userId)
         {
             return _eventRepository.GetEventsByUserId(userId);
         }
 
-        public List<Event> GetPurchaseEventsByItemId(int itemId)
+        public List<IEvent> GetPurchaseEventsByItemId(int itemId)
         {
             return _eventRepository.GetEventsByType("Purchase")
                 .FindAll(e => e is PurchaseEvent pe && pe.ItemId == itemId);

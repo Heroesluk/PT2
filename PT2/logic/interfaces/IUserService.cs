@@ -1,5 +1,6 @@
 ﻿using System;
 using PT2.data.model;
+using PT2.DataModel;
 
 namespace PT2.logic.interfaces
 {
@@ -9,7 +10,7 @@ namespace PT2.logic.interfaces
         void LoginUser(String username, String password);
         void RemoveUser(string username);
         bool IsUserRegistered(string username);
-        User FindUser(string username);
+        IUser FindUser(string username);
 
     }
 }
