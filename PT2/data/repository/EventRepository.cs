@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PT2.data.API.model;
 using PT2.data.API.repository;
 using PT2.data.interfaces;
-using PT2.DataModel;
 
 namespace PT2.data.repository;
 
@@ -43,7 +43,12 @@ public class EventRepository : IEventRepository
     //TO DO: implement
     public List<IEvent> GetEventsByType(string name)
     {
-        throw new NotImplementedException();
+        if (string.IsNullOrEmpty(name))
+        {
+            throw new ArgumentNullException("Name cannot be null or empty.");
+        }
+
+        return DataContext.Events.Where(e => e.GetType().Name.Equals(name)).ToList();
     }
 
     public List<IEvent> GetEventsByUserId(int userId)

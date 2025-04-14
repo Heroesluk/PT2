@@ -1,5 +1,5 @@
+using PT2.data.API.model;
 using PT2.data.API.repository;
-using PT2.DataModel;
 
 namespace Tests.logic.helper;
 
@@ -17,7 +17,13 @@ class FakeItemRepository : IItemRepository
 
     public void DeleteItem(int itemId) => _items.Remove(itemId);
 
-    public IItem GetItemByName(string name) => throw new NotImplementedException();
+    public IItem GetItemByName(string name)
+    {
+        return null;
+    }
 
-    public List<IItem> GetItemsByPriceCutOff(float priceCutOff, string upDown) => throw new NotImplementedException();
+    public List<IItem> GetItemsByPriceCutOff(float priceCutOff, string upDown)
+    {
+        return null;
+    }
 }

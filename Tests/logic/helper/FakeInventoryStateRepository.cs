@@ -1,16 +1,21 @@
+using PT2.data.API.model;
 using PT2.data.API.repository;
-using PT2.data.model;
-using PT2.DataModel;
 
 namespace Tests.logic.helper;
 
  class FakeInventoryStateRepository : IInventoryStateRepository
 {
-    private readonly Dictionary<int, InventoryState> _inventory = new Dictionary<int, InventoryState>();
+    private readonly Dictionary<int, IInventoryState> _inventory = new Dictionary<int, IInventoryState>();
 
     public void AddInventoryState(IInventoryState state)
     {
-        throw new NotImplementedException();
+        if (state == null)
+            throw new ArgumentNullException(nameof(state));
+
+        if (_inventory.ContainsKey(state.ItemId))
+            throw new InvalidOperationException("Inventory state already exists.");
+
+        _inventory[state.ItemId] = (IInventoryState)state;
     }
 
     IInventoryState IInventoryStateRepository.GetInventoryState(int itemId)
@@ -18,7 +23,7 @@ namespace Tests.logic.helper;
         return GetInventoryState(itemId);
     }
 
-    public InventoryState GetInventoryState(int itemId) =>
+    public IInventoryState GetInventoryState(int itemId) =>
         _inventory.TryGetValue(itemId, out var state) ? state : null;
 
     public void UpdateInventoryState(int itemId, int quantity)
@@ -26,16 +31,17 @@ namespace Tests.logic.helper;
         if (_inventory.ContainsKey(itemId))
             _inventory[itemId].Quantity = quantity;
         else
-            _inventory[itemId] = new InventoryState { ItemId = itemId, Quantity = quantity };
+            _inventory[itemId] = new MockInventoryState(itemId, quantity);
     }
 
     public void RemoveInventoryState(int itemId)
     {
-        throw new NotImplementedException();
+        if (!_inventory.Remove(itemId))
+            throw new InvalidOperationException("Inventory state not found.");
     }
 
     public List<IInventoryState> GetAllInventoryStates()
     {
-        throw new NotImplementedException();
+        return null;
     }
 }

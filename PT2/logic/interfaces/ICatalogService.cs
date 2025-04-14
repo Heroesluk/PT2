@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using PT2.DataModel;
+using PT2.data.API.model;
 
 namespace PT2.logic.interfaces
 {

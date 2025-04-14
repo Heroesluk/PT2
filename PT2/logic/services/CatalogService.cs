@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using PT2.data.API.model;
 using PT2.data.API.repository;
 using PT2.data.model;
-using PT2.DataModel;
 using PT2.logic.interfaces;
 
 namespace PT2.logic.services

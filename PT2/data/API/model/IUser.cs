@@ -1,4 +1,4 @@
-namespace PT2.DataModel;
+namespace PT2.data.API.model;
 
 public interface IUser
 {

@@ -1,6 +1,5 @@
+using PT2.data.API.model;
 using PT2.data.API.repository;
-using PT2.data.model;
-using PT2.DataModel;
 
 namespace Tests.logic.helper;
 
@@ -11,13 +10,16 @@ class FakeEventRepository : IEventRepository
     public void AddEvent(IEvent eventObj) => _events.Add(eventObj);
     public IEvent GetEvent(int eventId)
     {
-        throw new NotImplementedException();
+        if (eventId < 0)
+            throw new ArgumentOutOfRangeException(nameof(eventId), "Identifier cannot be negative.");
+
+        return _events.FirstOrDefault(e => e.EventId == eventId);
     }
 
     public List<IEvent> GetAllEvents() => new List<IEvent>(_events);
 
     public List<IEvent> GetEventsByUserId(int userId) =>
-        _events.FindAll(e => e is PurchaseEvent pe && pe.UserId == userId);
+        _events.FindAll(e => e.UserId == userId);
 
     public List<IEvent> GetEventsByType(string type) =>
         _events.FindAll(e => e.GetType().Name == type);

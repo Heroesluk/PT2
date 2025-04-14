@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
+using PT2.data.API.model;
 using PT2.data.model;
-using PT2.DataModel;
 
 namespace PT2.data.API.repository
 {

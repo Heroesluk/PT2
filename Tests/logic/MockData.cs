@@ -1,6 +1,24 @@
-using PT2.DataModel;
+using PT2.data.API.model;
 
 namespace Tests;
+
+
+internal class MockItem : IItem
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Description { get; set; }
+    public float Price { get; set; }
+
+    public MockItem(int id, string name, string description, float price)
+    {
+        Id = id;
+        Name = name;
+        Description = description;
+        Price = price;
+    }
+    
+}
 
 internal class MockEvent : IEvent
 {
@@ -32,22 +50,9 @@ internal class MockInventoryState : IInventoryState
     }
 }
 
-internal class MockItem : IItem
-{
-    public int Id { get; set; }
-    public string Name { get; set; }
-    public string Description { get; set; }
-    public float Price { get; set; }
 
-    public MockItem(int id, string name, string description, float price)
-    {
-        Id = id;
-        Name = name;
-        Description = description;
-        Price = price;
-    }
-    
-}
+
+
 
 internal class MockPurchaseEvent : IEvent, IPurchaseEvent
 {
