@@ -1,8 +1,9 @@
 ﻿using System;
+using PT2.DataModel;
 
 namespace PT2.data.model
 {
-    public class User
+    public class User: IUser
     {
         public int Id { get; set; }
         public string Username { get; set; }

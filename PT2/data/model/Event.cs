@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using PT2.DataModel;
 
 namespace PT2.data.model
 {
 
 
-    public abstract class Event
+    public abstract class Event: IEvent
     {
 
         public int EventId { get; set; }

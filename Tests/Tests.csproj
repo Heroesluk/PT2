@@ -24,8 +24,4 @@
     <ProjectReference Include="..\PT2\PT2.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="logic\" />
-  </ItemGroup>
-
 </Project>
