@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PT2.data;
+﻿using PT2.data.model;
 
 namespace Tests.data
 {
@@ -20,7 +15,7 @@ namespace Tests.data
             string expectedEmail = "test@example.com";
 
             // When
-            User user = new User(expectedUsername, expectedPassword, expectedEmail);
+            User user = new User(1,expectedUsername, expectedPassword, expectedEmail);
 
             // Then
             Assert.AreEqual(expectedUsername, user.Username);
@@ -32,8 +27,8 @@ namespace Tests.data
         public void ToString_ShouldReturnCorrectFormat()
         {
             // Given
-            User user = new User("testUser", "securePass", "test@example.com");
-            string expectedOutput = "Username: testUser, Email: test@example.com";
+            User user = new User(1,"testUser", "securePass", "test@example.com");
+            string expectedOutput = "Id: 1, Username: testUser, Email: test@example.com";
 
             // When
             string actualOutput = user.ToString();
