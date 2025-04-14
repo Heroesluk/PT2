@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PT2.data.API.repository;
 using PT2.data.interfaces;
 using PT2.data.model;
+using PT2.DataModel;
 
 namespace PT2.data.repository
 {
@@ -15,7 +17,7 @@ namespace PT2.data.repository
             DataContext = dataContext;
         }
 
-        public User GetUserByUsername(string username)
+        public IUser GetUserByUsername(string username)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
@@ -26,12 +28,12 @@ namespace PT2.data.repository
             return DataContext.Users.First(u => u.Username.Equals(username));
         }
 
-        public List<User> GetAllUsers()
+        public List<IUser> GetAllUsers()
         {
             return DataContext.Users.ToList();
         }
 
-        public int AddUser(User user)
+        public int AddUser(IUser user)
         {
             //null user protection
             if (user == null)

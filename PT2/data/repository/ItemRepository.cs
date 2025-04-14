@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PT2.data.API.repository;
 using PT2.data.interfaces;
 using PT2.data.model;
+using PT2.DataModel;
 
 namespace PT2.data.repository
 {
@@ -15,7 +17,7 @@ namespace PT2.data.repository
             _dataContext = dataContext;
         }
 
-        public void AddItem(Item item)
+        public void AddItem(IItem item)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
@@ -26,7 +28,7 @@ namespace PT2.data.repository
             _dataContext.ItemsCatalog[item.Id] = item;
         }
 
-        public Item GetItem(int itemId)
+        public IItem GetItem(int itemId)
         {
             if (_dataContext.ItemsCatalog.ContainsKey(itemId))
             {
@@ -35,12 +37,12 @@ namespace PT2.data.repository
             throw new InvalidOperationException("Item with this id does not exist");
         }
 
-        public IEnumerable<Item> GetAllItems()
+        public IEnumerable<IItem> GetAllItems()
         {
             return _dataContext.ItemsCatalog.Values;
         }
 
-        public void UpdateItem(Item item)
+        public void UpdateItem(IItem item)
         {
             if (item == null)
                 throw new ArgumentNullException(nameof(item));
@@ -57,12 +59,12 @@ namespace PT2.data.repository
                 throw new InvalidOperationException("Item not found.");
         }
 
-        public Item GetItemByName(string name)
+        public IItem GetItemByName(string name)
         {
             return _dataContext.ItemsCatalog.Values.FirstOrDefault(i => i.Name == name);
         }
 
-        public List<Item> GetItemsByPriceCutOff(float priceCutOff, string upDown)
+        public List<IItem> GetItemsByPriceCutOff(float priceCutOff, string upDown)
         {
             return upDown.ToLower() switch
             {

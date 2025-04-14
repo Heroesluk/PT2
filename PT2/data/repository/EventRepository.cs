@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PT2.data.API.repository;
 using PT2.data.interfaces;
-using PT2.data.model;
+using PT2.DataModel;
 
 namespace PT2.data.repository;
 
@@ -15,7 +16,7 @@ public class EventRepository : IEventRepository
         this.DataContext = dataContext;
     }
 
-    public void AddEvent(Event _event)
+    public void AddEvent(IEvent _event)
     {
         if (_event == null)
             throw new ArgumentNullException(nameof(_event));
@@ -23,7 +24,7 @@ public class EventRepository : IEventRepository
         DataContext.Events.Add(_event);
     }
 
-    public Event GetEvent(int eventId)
+    public IEvent GetEvent(int eventId)
     {
         //TO DO: Verify
         if (eventId < 0)
@@ -34,18 +35,18 @@ public class EventRepository : IEventRepository
         return DataContext.Events.First(e => e.EventId.Equals(eventId));
     }
 
-    public List<Event> GetAllEvents()
+    public List<IEvent> GetAllEvents()
     {
         return DataContext.Events.ToList();
     }
 
     //TO DO: implement
-    public List<Event> GetEventsByType(string name)
+    public List<IEvent> GetEventsByType(string name)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
-    public List<Event> GetEventsByUserId(int userId)
+    public List<IEvent> GetEventsByUserId(int userId)
     {
         //TO DO: Verify
         if (userId < 0)

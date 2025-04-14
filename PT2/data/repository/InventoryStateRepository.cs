@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PT2.data.API.repository;
 using PT2.data.interfaces;
 using PT2.data.model;
+using PT2.DataModel;
 
 namespace PT2.data.repository
 {
@@ -15,7 +17,7 @@ namespace PT2.data.repository
             _dataContext = dataContext;
         }
 
-        public void AddInventoryState(InventoryState state)
+        public void AddInventoryState(IInventoryState state)
         {
             if (state == null)
                 throw new ArgumentNullException(nameof(state));
@@ -26,7 +28,7 @@ namespace PT2.data.repository
             _dataContext.Inventory.Add(state);
         }
 
-        public InventoryState GetInventoryState(int itemId)
+        public IInventoryState GetInventoryState(int itemId)
         {
             return _dataContext.Inventory.FirstOrDefault(i => i.ItemId == itemId);
         }
@@ -49,7 +51,7 @@ namespace PT2.data.repository
             _dataContext.Inventory.Remove(state);
         }
 
-        public List<InventoryState> GetAllInventoryStates()
+        public List<IInventoryState> GetAllInventoryStates()
         {
             return _dataContext.Inventory.ToList();
         }

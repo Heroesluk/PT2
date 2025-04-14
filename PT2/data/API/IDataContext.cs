@@ -1,18 +1,19 @@
 ﻿using System.Collections.Generic;
 using PT2.data.model;
+using PT2.DataModel;
 
 namespace PT2.data.interfaces
 {
     // this will hold all of our data in context of application
     public interface IDataContext
     {
-        List<User> Users { get; }
+        List<IUser> Users { get; }
 
-        Dictionary<int, Item> ItemsCatalog { get; }
+        Dictionary<int, IItem> ItemsCatalog { get; }
 
-        List<InventoryState> Inventory { get; }
+        List<IInventoryState> Inventory { get; }
 
-        List<Event> Events { get; }
+        List<IEvent> Events { get; }
     }
 
 }
