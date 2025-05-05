@@ -15,7 +15,7 @@ namespace PT2.data
         public IInventoryStateRepository inventoryStateRepo { get; }
         public IEventRepository eventRepo { get; }
 
-        public IDataContext dataContext { get; }
+        private IDataContext dataContext { get; set; }
 
         public DataService(IDataContext dataContext = null) {
             if (dataContext == null)

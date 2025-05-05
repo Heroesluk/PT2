@@ -10,12 +10,12 @@ namespace Tests.logic
         [TestMethod]
         public void RegisterUser_ValidUser_ShouldAddSuccessfully()
         {
-            var fakeRepository = new FakeUserRepository();
-            var userService = new UserService(fakeRepository);
+            var fakeDataService = new FakeDataService();
+            var userService = new UserService(fakeDataService);
 
             userService.RegisterUser("testUser", "securePass", "test@example.com");
 
-            var user = fakeRepository.GetUserByUsername("testUser");
+            var user = fakeDataService.userRepo.GetUserByUsername("testUser");
             Assert.IsNotNull(user);
             Assert.AreEqual("testUser", user.Username);
             Assert.AreEqual("securePass", user.Password);
@@ -26,8 +26,8 @@ namespace Tests.logic
         [ExpectedException(typeof(ArgumentException))]
         public void RegisterUser_EmptyUsername_ShouldThrowException()
         {
-            var fakeRepository = new FakeUserRepository();
-            var userService = new UserService(fakeRepository);
+            var fakeDataService = new FakeDataService();
+            var userService = new UserService(fakeDataService);
 
             userService.RegisterUser("", "securePass", "test@example.com");
         }
@@ -36,8 +36,8 @@ namespace Tests.logic
         [ExpectedException(typeof(InvalidOperationException))]
         public void RegisterUser_DuplicateUsername_ShouldThrowException()
         {
-            var fakeRepository = new FakeUserRepository();
-            var userService = new UserService(fakeRepository);
+            var fakeDataService = new FakeDataService();
+            var userService = new UserService(fakeDataService);
 
             userService.RegisterUser("testUser", "securePass", "test@example.com");
             userService.RegisterUser("testUser", "anotherPass", "another@example.com");
@@ -46,13 +46,13 @@ namespace Tests.logic
         [TestMethod]
         public void RemoveUser_ExistingUser_ShouldRemoveSuccessfully()
         {
-            var fakeRepository = new FakeUserRepository();
-            var userService = new UserService(fakeRepository);
+            var fakeDataService = new FakeDataService();
+            var userService = new UserService(fakeDataService);
 
             userService.RegisterUser("testUser", "securePass", "test@example.com");
             userService.RemoveUser("testUser");
 
-            var user = fakeRepository.GetUserByUsername("testUser");
+            var user = fakeDataService.userRepo.GetUserByUsername("testUser");
             Assert.IsNull(user);
         }
 
@@ -60,8 +60,8 @@ namespace Tests.logic
         [ExpectedException(typeof(InvalidOperationException))]
         public void RemoveUser_NonExistingUser_ShouldThrowException()
         {
-            var fakeRepository = new FakeUserRepository();
-            var userService = new UserService(fakeRepository);
+            var fakeDataService = new FakeDataService();
+            var userService = new UserService(fakeDataService);
 
             userService.RemoveUser("nonexistentUser");
         }
@@ -69,8 +69,8 @@ namespace Tests.logic
         [TestMethod]
         public void IsUserRegistered_ExistingUser_ShouldReturnTrue()
         {
-            var fakeRepository = new FakeUserRepository();
-            var userService = new UserService(fakeRepository);
+            var fakeDataService = new FakeDataService();
+            var userService = new UserService(fakeDataService);
 
             userService.RegisterUser("testUser", "securePass", "test@example.com");
 
@@ -80,8 +80,8 @@ namespace Tests.logic
         [TestMethod]
         public void IsUserRegistered_NonExistingUser_ShouldReturnFalse()
         {
-            var fakeRepository = new FakeUserRepository();
-            var userService = new UserService(fakeRepository);
+            var fakeDataService = new FakeDataService();
+            var userService = new UserService(fakeDataService);
 
             Assert.IsFalse(userService.IsUserRegistered("nonexistentUser"));
         }

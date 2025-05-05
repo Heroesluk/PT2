@@ -13,7 +13,5 @@ namespace PT2.data.API
         IInventoryStateRepository inventoryStateRepo { get; }
         IEventRepository eventRepo { get; }
 
-        IDataContext dataContext { get; }
-
     }
 }

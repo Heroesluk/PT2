@@ -12,46 +12,36 @@ namespace Tests.logic
         [TestMethod]
         public void SellItem_ValidInputs_ShouldReduceStockAndLogEvent()
         {
-            var fakeUserRepository = new FakeUserRepository();
-            var fakeItemRepository = new FakeItemRepository();
-            var fakeInventoryRepository = new FakeInventoryStateRepository();
-            var fakeEventRepository = new FakeEventRepository();
+            var fakeDataService = new FakeDataService();
 
-            var purchaseService = new PurchaseService(
-                fakeUserRepository,
-                fakeItemRepository,
-                fakeInventoryRepository,
-                fakeEventRepository);
+            var purchaseService = new PurchaseService(fakeDataService);
 
             var user = new MockUser(1, "testUser", "securePass", "test@example.com");
-            fakeUserRepository.AddUser(user);
+            fakeDataService.userRepo.AddUser(user);
 
             var item = new MockItem(1, "Test Item", "Test Description", 10.0f);
-            fakeItemRepository.AddItem(item);
+            fakeDataService.itemRepo.AddItem(item);
 
-            fakeInventoryRepository.UpdateInventoryState(1, 10);
+            fakeDataService.inventoryStateRepo.UpdateInventoryState(1, 10);
 
             purchaseService.SellItem(1, 1, 2);
 
-            var inventory = fakeInventoryRepository.GetInventoryState(1);
+            var inventory = fakeDataService.inventoryStateRepo.GetInventoryState(1);
             Assert.AreEqual(8, inventory.Quantity);
 
-            var events = fakeEventRepository.GetEventsByUserId(1);
+            var events = fakeDataService.eventRepo.GetEventsByUserId(1);
             Assert.AreEqual(1, events.Count);
         }
 
         [TestMethod]
         public void CalculateTotalPrice_ValidInputs_ShouldReturnCorrectPrice()
         {
-            var fakeItemRepository = new FakeItemRepository();
-            var purchaseService = new PurchaseService(
-                null,
-                fakeItemRepository,
-                null,
-                null);
+            var fakeDataService = new FakeDataService();
+
+            var purchaseService = new PurchaseService(fakeDataService);
 
             var item = new MockItem(1, "Test Item", "Test Description", 10.0f);
-            fakeItemRepository.AddItem(item);
+            fakeDataService.itemRepo.AddItem(item);
 
             var totalPrice = purchaseService.CalculateTotalPrice(1, 3);
             Assert.AreEqual(30.0f, totalPrice);
@@ -61,16 +51,9 @@ namespace Tests.logic
         [ExpectedException(typeof(InvalidOperationException))]
         public void SellItem_NonExistingUser_ShouldThrowException()
         {
-            var fakeUserRepository = new FakeUserRepository();
-            var fakeItemRepository = new FakeItemRepository();
-            var fakeInventoryRepository = new FakeInventoryStateRepository();
-            var fakeEventRepository = new FakeEventRepository();
+            var fakeDataService = new FakeDataService();
 
-            var purchaseService = new PurchaseService(
-                fakeUserRepository,
-                fakeItemRepository,
-                fakeInventoryRepository,
-                fakeEventRepository);
+            var purchaseService = new PurchaseService(fakeDataService);
 
             purchaseService.SellItem(99, 1, 1);
         }
@@ -79,24 +62,17 @@ namespace Tests.logic
         [ExpectedException(typeof(InvalidOperationException))]
         public void SellItem_InsufficientStock_ShouldThrowException()
         {
-            var fakeUserRepository = new FakeUserRepository();
-            var fakeItemRepository = new FakeItemRepository();
-            var fakeInventoryRepository = new FakeInventoryStateRepository();
-            var fakeEventRepository = new FakeEventRepository();
+            var fakeDataService = new FakeDataService();
 
-            var purchaseService = new PurchaseService(
-                fakeUserRepository,
-                fakeItemRepository,
-                fakeInventoryRepository,
-                fakeEventRepository);
+            var purchaseService = new PurchaseService(fakeDataService);
 
             var user = new MockUser(1, "testUser", "securePass", "test@example.com");
-            fakeUserRepository.AddUser(user);
+            fakeDataService.userRepo.AddUser(user);
 
             var item = new MockItem(1, "Test Item", "Test Description", 10.0f);
-            fakeItemRepository.AddItem(item);
+            fakeDataService.itemRepo.AddItem(item);
 
-            fakeInventoryRepository.UpdateInventoryState(1, 1);
+            fakeDataService.inventoryStateRepo.UpdateInventoryState(1, 1);
 
             purchaseService.SellItem(1, 1, 2);
         }
