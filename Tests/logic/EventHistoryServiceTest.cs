@@ -1,4 +1,4 @@
-using PT2.logic.services;
+using PT2.logic;
 using Tests.logic.helper;
 
 namespace Tests.logic

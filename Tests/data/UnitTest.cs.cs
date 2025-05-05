@@ -1,4 +1,4 @@
-﻿using PT2.data.model;
+﻿using PT2.data;
 
 namespace Tests.data
 {

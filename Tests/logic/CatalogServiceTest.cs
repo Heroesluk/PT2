@@ -1,6 +1,5 @@
-using PT2.data.API.model;
-using PT2.data.API.repository;
-using PT2.logic.services;
+using PT2.data.API;
+using PT2.logic;
 
 namespace Tests.logic
 {

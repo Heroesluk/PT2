@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using PT2.data.API.model;
-using PT2.data.model;
 
-namespace PT2.data.interfaces
+namespace PT2.data.API
 {
     // this will hold all of our data in context of application
     public interface IDataContext
