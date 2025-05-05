@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\PT2\PT2.csproj" />
+    <Folder Include="logic\" />
   </ItemGroup>
 
 </Project>
