@@ -1,5 +1,5 @@
-﻿using Logic;
-using PT2.data.API;
+﻿using PT2.data.API;
+using PT2.Logic;
 using PT2.logic.API;
 
 namespace PT2.logic

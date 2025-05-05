@@ -1,6 +1,6 @@
 using PT2.data.API;
 
-namespace Logic
+namespace PT2.Logic
 
 {
     public class PurchaseEventDto: IEvent
