@@ -7,11 +7,12 @@ namespace PT2.logic
 {
     public class InventoryService : IInventoryService
     {
-        private IInventoryStateRepository _inventoryStateRepository;
+        //private IInventoryStateRepository _inventoryStateRepository;
+        private IDataService _dataService;
 
-        public InventoryService(IInventoryStateRepository inventoryStateRepository)
+        public InventoryService(IDataService dataService)
         {
-            _inventoryStateRepository = inventoryStateRepository;
+            _dataService = dataService;
         }
 
         public void AddStock(int itemId, int quantity)
@@ -19,14 +20,14 @@ namespace PT2.logic
             if (quantity <= 0)
                 throw new ArgumentException("Quantity must be positive.");
 
-            var inventory = _inventoryStateRepository.GetInventoryState(itemId) ?? new InventoryState { ItemId = itemId, Quantity = 0 };
+            var inventory = _dataService.inventoryStateRepo.GetInventoryState(itemId) ?? new InventoryState { ItemId = itemId, Quantity = 0 };
             inventory.Quantity += quantity;
-            _inventoryStateRepository.UpdateInventoryState(itemId, inventory.Quantity);
+            _dataService.inventoryStateRepo.UpdateInventoryState(itemId, inventory.Quantity);
         }
 
         public int GetItemStock(int itemId)
         {
-            var inventory = _inventoryStateRepository.GetInventoryState(itemId);
+            var inventory = _dataService.inventoryStateRepo.GetInventoryState(itemId);
             return inventory?.Quantity ?? 0;
         }
 
@@ -35,12 +36,12 @@ namespace PT2.logic
             if (quantity <= 0)
                 throw new ArgumentException("Quantity must be positive.");
 
-            var inventory = _inventoryStateRepository.GetInventoryState(itemId);
+            var inventory = _dataService.inventoryStateRepo.GetInventoryState(itemId);
             if (inventory == null || inventory.Quantity < quantity)
                 throw new InvalidOperationException("Insufficient stock.");
 
             inventory.Quantity -= quantity;
-            _inventoryStateRepository.UpdateInventoryState(itemId, inventory.Quantity);
+            _dataService.inventoryStateRepo.UpdateInventoryState(itemId, inventory.Quantity);
         }
                 
     }

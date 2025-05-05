@@ -8,11 +8,12 @@ namespace PT2.logic
 {
     public class CatalogService : ICatalogService
     {
-        private IItemRepository _itemRepository;
+        //private IItemRepository _itemRepository;
+        private IDataService _dataService;
 
-        public CatalogService(IItemRepository itemRepository)
+        public CatalogService(IDataService dataService)
         {
-            _itemRepository = itemRepository;
+            _dataService = dataService;
         }
 
         public void AddItemToCatalog(int itemId, string name, string description, float price)
@@ -21,17 +22,17 @@ namespace PT2.logic
                 throw new ArgumentException("Price cannot be negative.");
 
             var item = new Item { Id = itemId, Name = name, Description = description, Price = price };
-            _itemRepository.AddItem(item);
+            _dataService.itemRepo.AddItem(item);
         }
 
         public List<IItem> GetAllItems()
         {
-            return new List<IItem>(_itemRepository.GetAllItems());
+            return new List<IItem>(_dataService.itemRepo.GetAllItems());
         }
 
         public IItem GetItemById(int itemId)
         {
-            var item = _itemRepository.GetItem(itemId);
+            var item = _dataService.itemRepo.GetItem(itemId);
             if (item == null)
                 throw new InvalidOperationException("Item not found.");
             return item;
@@ -39,19 +40,19 @@ namespace PT2.logic
 
         public void UpdateItemDetails(int itemId, string name, string description, float price)
         {
-            var item = _itemRepository.GetItem(itemId);
+            var item = _dataService.itemRepo.GetItem(itemId);
             if (item == null)
                 throw new InvalidOperationException("Item not found.");
 
             item.Name = name;
             item.Description = description;
             item.Price = price;
-            _itemRepository.UpdateItem(item);
+            _dataService.itemRepo.UpdateItem(item);
         }
 
         public void RemoveItemFromCatalog(int itemId)
         {
-            _itemRepository.DeleteItem(itemId);
+            _dataService.itemRepo.DeleteItem(itemId);
         }
 
     }

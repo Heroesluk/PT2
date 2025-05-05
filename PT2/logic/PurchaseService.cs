@@ -7,21 +7,15 @@ namespace PT2.logic
 {
     public class PurchaseService : IPurchaseService
     {
-        private IUserRepository _userRepository;
-        private IItemRepository _itemRepository;
-        private IInventoryStateRepository _inventoryStateRepository;
-        private IEventRepository _eventRepository;
+        //private IUserRepository _userRepository;
+        //private IItemRepository _itemRepository;
+        //private IInventoryStateRepository _inventoryStateRepository;
+        //private IEventRepository _eventRepository;
 
-        public PurchaseService(
-            IUserRepository userRepository,
-            IItemRepository itemRepository,
-            IInventoryStateRepository inventoryStateRepository,
-            IEventRepository eventRepository)
-        {
-            _userRepository = userRepository;
-            _itemRepository = itemRepository;
-            _inventoryStateRepository = inventoryStateRepository;
-            _eventRepository = eventRepository;
+        private IDataService _dataService;
+
+        public PurchaseService(IDataService dataService) {
+            _dataService = dataService;
         }
 
         public void SellItem(int userId, int itemId, int quantity)
@@ -29,20 +23,20 @@ namespace PT2.logic
             if (quantity <= 0)
                 throw new ArgumentException("Quantity must be positive.");
 
-            var user = _userRepository.GetAllUsers().Find(u => u.Id == userId);
+            var user = _dataService.userRepo.GetAllUsers().Find(u => u.Id == userId);
             if (user == null)
                 throw new InvalidOperationException("User not found.");
 
-            var item = _itemRepository.GetItem(itemId);
+            var item = _dataService.itemRepo.GetItem(itemId);
             if (item == null)
                 throw new InvalidOperationException("Item not found.");
 
-            var inventory = _inventoryStateRepository.GetInventoryState(itemId);
+            var inventory = _dataService.inventoryStateRepo.GetInventoryState(itemId);
             if (inventory == null || inventory.Quantity < quantity)
                 throw new InvalidOperationException("Insufficient stock.");
 
             inventory.Quantity -= quantity;
-            _inventoryStateRepository.UpdateInventoryState(itemId, inventory.Quantity);
+            _dataService.inventoryStateRepo.UpdateInventoryState(itemId, inventory.Quantity);
 
             var purchaseEvent = new PurchaseEvent
             {
@@ -51,7 +45,7 @@ namespace PT2.logic
                 Quantity = quantity,
                 Timestamp = DateTime.UtcNow
             };
-            _eventRepository.AddEvent(purchaseEvent);
+            _dataService.eventRepo.AddEvent(purchaseEvent);
         }
 
         public float CalculateTotalPrice(int itemId, int quantity)
@@ -59,7 +53,7 @@ namespace PT2.logic
             if (quantity <= 0)
                 throw new ArgumentException("Quantity must be positive.");
 
-            var item = _itemRepository.GetItem(itemId);
+            var item = _dataService.itemRepo.GetItem(itemId);
             if (item == null)
                 throw new InvalidOperationException("Item not found.");
 

@@ -7,11 +7,12 @@ namespace PT2.logic
 {
     public class UserService : IUserService
     {
-        private IUserRepository _userRepository;
+        //private IUserRepository _userRepository;
+        private IDataService _dataService;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IDataService dataService)
         {
-            _userRepository = userRepository;
+            _dataService = dataService;
         }
 
         public void RegisterUser(string username, string password, string email)
@@ -21,11 +22,11 @@ namespace PT2.logic
                 throw new ArgumentException("Username, password, and email cannot be empty.");
 
             //user already exists
-            if (_userRepository.GetUserByUsername(username) != null)
+            if (_dataService.userRepo.GetUserByUsername(username) != null)
                 throw new InvalidOperationException("User already exists.");
 
             var user = new User(-1, username, password, email);
-            _userRepository.AddUser(user);
+            _dataService.userRepo.AddUser(user);
         }
 
         //TO DO: implement / rm - this functionality requires some kind of session mechanism
@@ -36,18 +37,18 @@ namespace PT2.logic
 
         public void RemoveUser(string username)
         {
-            if (!_userRepository.DeleteUserByUsername(username))
+            if (!_dataService.userRepo.DeleteUserByUsername(username))
                 throw new InvalidOperationException("User not found.");
         }
 
         public bool IsUserRegistered(string username)
         {
-            return _userRepository.GetUserByUsername(username) != null;
+            return _dataService.userRepo.GetUserByUsername(username) != null;
         }
 
         public IUser FindUser(string username)
         {
-            return _userRepository.GetUserByUsername(username);
+            return _dataService.userRepo.GetUserByUsername(username);
         }
 
     }
