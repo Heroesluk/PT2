@@ -1,4 +1,5 @@
 using Data;
+using Microsoft.EntityFrameworkCore;
 using PT2.data.API;
 
 namespace PT2.data;
@@ -15,7 +16,7 @@ public class DbDataService : IDataService
     
     public DbDataService()
     {
-        _context = new ShopDbContext();
+        _context = new ShopDbContext(new DbContextOptions<ShopDbContext>());       
         userRepo = new UserDbRepository(_context);
         itemRepo = new ItemDbRepository(_context);
         inventoryStateRepo = new InventoryStateDbRepository(_context);

@@ -1,3 +1,5 @@
+using Data;
+using Data.API;
 using Microsoft.EntityFrameworkCore;
 using PT2.data.API;
 
@@ -5,9 +7,9 @@ namespace PT2.data;
 
 internal class UserDbRepository : IUserRepository
 {
-    private readonly ShopDbContext _context;
+    private readonly IShopDbContext _context;
     
-    public UserDbRepository(ShopDbContext context)
+    public UserDbRepository(IShopDbContext context)
     {
         _context = context;
     }
@@ -33,14 +35,19 @@ internal class UserDbRepository : IUserRepository
     public int AddUser(IUser user)
     {
         
-        _context.Users.Add(user);
+        _context.Users.Add(new User(user.Id, user.Username, user.Password, user.Email));
         _context.SaveChanges();
         return user.Id;
     }
 
     public Boolean DeleteUserByUsername(string username)
     { 
-        _context.Users.Remove(GetUserByUsername(username));
+        var user = GetUserByUsername(username);
+        if (user == null)
+            throw new InvalidOperationException("User not found.");
+
+        _context.Users.Remove((User)user);
+        _context.SaveChanges();
         return true;
     }
 }

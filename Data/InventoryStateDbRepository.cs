@@ -8,7 +8,7 @@ namespace Data
     {
         private readonly ShopDbContext _dbContext;
 
-        public InventoryStateDbRepository(ShopDbContext dbContext)
+        internal InventoryStateDbRepository(ShopDbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }

@@ -18,6 +18,14 @@ namespace PT2.data
             Id = id;
         }
 
+        public User(IUser user)
+        {
+            Id = user.Id;
+            Username = user.Username;
+            Password = user.Password;
+            Email = user.Email;
+        }
+
         public override string ToString()
         {
             return $"Id: {Id}, Username: {Username}, Email: {Email}";
