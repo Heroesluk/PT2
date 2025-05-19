@@ -1,3 +1,4 @@
+using Data.API;
 using Microsoft.EntityFrameworkCore;
 using PT2.data;
 using PT2.data.API;
@@ -6,11 +7,11 @@ namespace Data
 {
     public class InventoryStateDbRepository : IInventoryStateRepository
     {
-        private readonly ShopDbContext _dbContext;
+        private readonly IShopDbContext _dbContext;
 
-        internal InventoryStateDbRepository(ShopDbContext dbContext)
+        internal InventoryStateDbRepository(IShopDbContext dbContext)
         {
-            _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
+            _dbContext = dbContext;
         }
 
         public void AddInventoryState(IInventoryState state)
@@ -45,16 +46,19 @@ namespace Data
 
         public void RemoveInventoryState(int itemId)
         {
-            var state = _dbContext.Inventory
-                .FirstOrDefault(i => i.ItemId == itemId);
+            var state = _dbContext.Inventory.FirstOrDefault(i => i.ItemId == itemId);
 
             if (state == null)
                 throw new InvalidOperationException("Inventory state not found.");
 
+            // Attach the entity to the DbContext if it's not already tracked
+            _dbContext.Inventory.Attach(state);
+
             _dbContext.Inventory.Remove(state);
             _dbContext.SaveChanges();
         }
-
+        
+        
         public List<IInventoryState> GetAllInventoryStates()
         {
             return _dbContext.Inventory
