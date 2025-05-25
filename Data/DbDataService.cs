@@ -16,10 +16,14 @@ public class DbDataService : IDataService
     
     public DbDataService()
     {
-        _context = new ShopDbContext(new DbContextOptions<ShopDbContext>());       
+        _context = new ShopDbContext();       
         userRepo = new UserDbRepository(_context);
         itemRepo = new ItemDbRepository(_context);
         inventoryStateRepo = new InventoryStateDbRepository(_context);
         eventRepo = new EventDbRepository(_context);
+        
+        _context.EnsureSchemaCreated();
+
+        
     }
 }

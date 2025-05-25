@@ -87,7 +87,7 @@ namespace TestDataLayer
             _repository.RemoveInventoryState(1);
 
             var result = _repository.GetInventoryState(1);
-            Assert.Equals(result.Quantity, 0);
+            Assert.AreEqual(result.Quantity, 0);
         }
 
         [TestMethod]

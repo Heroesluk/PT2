@@ -1,0 +1,103 @@
+using PT2.logic.API;
+
+namespace PT2.Presentation
+{
+    public partial class CatalogForm : Form
+    {
+        private readonly CatalogViewModel _viewModel;
+
+        public CatalogForm(ICatalogService catalogService)
+        {
+            InitializeComponent();
+            _viewModel = new CatalogViewModel(catalogService);
+            _viewModel.ItemsChanged += ViewModel_ItemsChanged;
+
+            // Add columns to grid
+            dataGridViewItems.AutoGenerateColumns = true;
+            LoadCatalog();
+        }
+
+        private void LoadCatalog()
+        {
+            if (_viewModel.Items != null)
+            {
+                var items = _viewModel.Items.Select(i => new
+                {
+                    i.Id,
+                    i.Name,
+                    i.Description,
+                    i.Price
+                }).ToList();
+
+                if (dataGridViewItems.InvokeRequired)
+                {
+                    dataGridViewItems.Invoke(() => dataGridViewItems.DataSource = items);
+                }
+                else
+                {
+                    dataGridViewItems.DataSource = items;
+                }
+            }
+        }
+
+        private void ViewModel_ItemsChanged(object sender, EventArgs e)
+        {
+            LoadCatalog();
+        }
+
+        private void buttonAdd_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int id = int.Parse(textBoxId.Text);
+                string name = textBoxName.Text;
+                string description = textBoxDescription.Text;
+                float price = float.Parse(textBoxPrice.Text);
+
+                _viewModel.AddItem(id, name, description, price);
+                ClearInputs();
+                MessageBox.Show("Item added successfully!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
+        private void buttonRemove_Click(object sender, EventArgs e)
+        {
+            try
+            { 
+                if (dataGridViewItems.CurrentRow == null)
+                {
+                    MessageBox.Show("Please select an item to remove.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var selectedItem = dataGridViewItems.CurrentRow.DataBoundItem;
+                var itemId = (int)dataGridViewItems.CurrentRow.Cells["Id"].Value;
+
+                if (MessageBox.Show("Are you sure you want to remove this item?", "Confirm Delete",
+                        MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _viewModel.RemoveItem(itemId);
+                    ClearInputs();
+                    MessageBox.Show("Item removed successfully!");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
+        private void ClearInputs()
+        {
+            textBoxId.Clear();
+            textBoxName.Clear();
+            textBoxDescription.Clear();
+            textBoxPrice.Clear();
+        }
+    }
+}
