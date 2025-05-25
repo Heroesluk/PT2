@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestLogicLayer", "TestLogicLayer\TestLogicLayer.csproj", "{F6ADB738-1FB3-45B6-87A8-AAE16FEF980E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Presentation", "Presentation\Presentation.csproj", "{779728E9-580D-43C5-B902-6832AFE12D91}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{F6ADB738-1FB3-45B6-87A8-AAE16FEF980E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6ADB738-1FB3-45B6-87A8-AAE16FEF980E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6ADB738-1FB3-45B6-87A8-AAE16FEF980E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{779728E9-580D-43C5-B902-6832AFE12D91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{779728E9-580D-43C5-B902-6832AFE12D91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{779728E9-580D-43C5-B902-6832AFE12D91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{779728E9-580D-43C5-B902-6832AFE12D91}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
