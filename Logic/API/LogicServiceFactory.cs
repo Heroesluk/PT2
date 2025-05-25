@@ -8,10 +8,15 @@ namespace PT2.logic
     {
         private static IDataService DataService => DataServiceFactory.Instance;
 
+// LogicServiceFactory.cs
+
         public static ICatalogService CreateCatalogService()
         {
-            return new CatalogService(DataService);
+            var dataService = Data.API.DataServiceFactory.Instance;
+            var inventoryService = new InventoryService(dataService);
+            return new CatalogService(dataService, inventoryService);
         }
+
 
         public static IInventoryService CreateInventoryService()
         {

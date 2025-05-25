@@ -16,15 +16,26 @@ namespace Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Data Source=C:/Users/Lucas/RiderProjects/PT2/Data/data.db");        }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
             // Configure entity relationships
-            modelBuilder.Entity<Item>().HasKey(i => i.Id);
-            modelBuilder.Entity<InventoryState>().HasKey(i => i.ItemId);
-            modelBuilder.Entity<Event>().HasKey(e => e.EventId);
+            modelBuilder.Entity<Item>()
+                .HasKey(i => i.Id);
+
+            modelBuilder.Entity<InventoryState>()
+                .HasKey(i => i.ItemId);
+
+            modelBuilder.Entity<InventoryState>()
+                .HasOne(i => i.Item)
+                .WithOne()
+                .HasForeignKey<InventoryState>(i => i.ItemId)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Event>()
+                .HasKey(e => e.EventId);
 
             modelBuilder.Entity<Event>()
                 .HasDiscriminator<string>("EventName")
@@ -35,6 +46,7 @@ namespace Data
                 .WithMany()
                 .HasForeignKey(pe => pe.ItemId);
         }
+        
 
         public void EnsureSchemaCreated()
         {

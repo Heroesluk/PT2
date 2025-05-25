@@ -22,14 +22,13 @@ namespace Data
             if (_dbContext.Inventory.Any(i => i.ItemId == state.ItemId))
                 throw new InvalidOperationException("Inventory state for this item already exists.");
 
-            _dbContext.Inventory.Add((InventoryState)state);
+            _dbContext.Inventory.Add(new InventoryState(state.ItemId,state.Quantity));
             _dbContext.SaveChanges();
         }
 
         public IInventoryState GetInventoryState(int itemId)
         {
-            var state = _dbContext.Inventory.FirstOrDefault(i => i.ItemId == itemId);
-            return state ?? new InventoryState { ItemId = itemId, Quantity = 0 };
+            return _dbContext.Inventory.FirstOrDefault(i => i.ItemId == itemId);
         }
 
         public void UpdateInventoryState(int itemId, int newQuantity)

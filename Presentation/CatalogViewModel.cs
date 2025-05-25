@@ -1,3 +1,4 @@
+using Presentation;
 using PT2.data.API;
 using PT2.logic.API;
 
@@ -29,6 +30,9 @@ public class CatalogViewModel
     private void RefreshItems()
     {
         Items = _catalogService.GetAllItems();
+        OnItemsChanged();
+        EventService.OnCatalogChanged(); // Add this line
+
         if (ItemsChanged != null)
         {
             var handler = ItemsChanged;

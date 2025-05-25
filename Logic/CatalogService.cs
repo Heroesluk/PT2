@@ -5,12 +5,13 @@ namespace PT2.logic
 {
     public class CatalogService : ICatalogService
     {
-        //private IItemRepository _itemRepository;
-        private IDataService _dataService;
+        private readonly IDataService _dataService;
+        private readonly IInventoryService _inventoryService;
 
-        public CatalogService(IDataService dataService)
+        public CatalogService(IDataService dataService, IInventoryService inventoryService)
         {
             _dataService = dataService;
+            _inventoryService = inventoryService;
         }
 
         public void AddItemToCatalog(int itemId, string name, string description, float price)
@@ -20,6 +21,8 @@ namespace PT2.logic
 
             var item = new ItemDto(itemId, name, description, price);
             _dataService.itemRepo.AddItem(item);
+
+            _inventoryService.AddStock(itemId, 10);
         }
 
         public List<IItem> GetAllItems()
@@ -51,6 +54,5 @@ namespace PT2.logic
         {
             _dataService.itemRepo.DeleteItem(itemId);
         }
-
     }
 }

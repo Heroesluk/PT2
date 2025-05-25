@@ -1,13 +1,24 @@
-﻿using PT2.data.API;
+﻿// Data/InventoryState.cs
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using PT2.data.API;
 
 namespace PT2.data
 {
-    // this will be used to represent number of specific item in the inventory
-    internal class InventoryState : IInventoryState
+    [Table("InventoryState")]
+    internal class InventoryState: IInventoryState
     {
-        public int ItemId { get; set; }
+        public InventoryState(int itemId, int quantity)
+        {
+            ItemId = itemId;
+            Quantity = quantity;
+        }
 
+        [Key]
+        [ForeignKey("Item")]
+        public int ItemId { get; set; }
         public int Quantity { get; set; }
 
+        public virtual Item Item { get; set; }
     }
 }
