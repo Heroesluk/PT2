@@ -6,7 +6,11 @@ namespace Data.API
     public static class DataServiceFactory
     {
         private static readonly Lazy<IDataService> _instance =
-            new Lazy<IDataService>(() => new DbDataService());
+            new Lazy<IDataService>(() =>
+            {
+                
+                return new DbDataService();
+            });
 
         public static IDataService Instance => _instance.Value;
     }

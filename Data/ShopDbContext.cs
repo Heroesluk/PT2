@@ -11,28 +11,43 @@ namespace Data
         public DbSet<InventoryState> Inventory { get; set; }
         public DbSet<Event> Events { get; set; }
         public DbSet<PurchaseEvent> PurchaseEvents { get; set; }
+        private bool _initialized;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=shop.db");
-            
-        }
+            optionsBuilder.UseSqlite("Data Source=C:/Users/Lucas/RiderProjects/PT2/Data/data.db");        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<User>().HasKey(u => u.Id);
+            base.OnModelCreating(modelBuilder);
+
+            // Configure entity relationships
             modelBuilder.Entity<Item>().HasKey(i => i.Id);
             modelBuilder.Entity<InventoryState>().HasKey(i => i.ItemId);
             modelBuilder.Entity<Event>().HasKey(e => e.EventId);
 
             modelBuilder.Entity<Event>()
-                .HasDiscriminator<string>("EventType")
+                .HasDiscriminator<string>("EventName")
                 .HasValue<PurchaseEvent>("Purchase");
 
             modelBuilder.Entity<PurchaseEvent>()
                 .HasOne<Item>()
                 .WithMany()
                 .HasForeignKey(pe => pe.ItemId);
+        }
+
+        public void EnsureSchemaCreated()
+        {
+            if (!_initialized)
+            {
+                if (!Database.CanConnect())
+                {
+                    Database.EnsureCreated();
+                    var sql = File.ReadAllText("schema.sql");
+                    Database.ExecuteSqlRaw(sql);
+                }
+                _initialized = true;
+            }
         }
     }
 }

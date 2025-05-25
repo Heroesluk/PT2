@@ -25,7 +25,15 @@ namespace PT2.data
             if (_dbContext.Items.Any(i => i.Id == item.Id))
                 throw new InvalidOperationException("Item with the same ID already exists.");
 
-            _dbContext.Items.Add((Item)item);
+            var itemEntity = new Item
+            {
+                Id = item.Id,
+                Name = item.Name,
+                Description = item.Description,
+                Price = item.Price
+            };
+            
+            _dbContext.Items.Add(itemEntity);
             _dbContext.SaveChanges();
         }
 

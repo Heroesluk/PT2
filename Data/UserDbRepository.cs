@@ -34,7 +34,6 @@ internal class UserDbRepository : IUserRepository
 
     public int AddUser(IUser user)
     {
-        
         _context.Users.Add(new User(user.Id, user.Username, user.Password, user.Email));
         _context.SaveChanges();
         return user.Id;
