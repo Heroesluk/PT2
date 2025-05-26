@@ -23,7 +23,7 @@ namespace PT2.data
                 _event.EventName,
                 _event.Timestamp,
                 _event.UserId,
-                _event.EventDesciription);
+                _event.EventDescription);
             _dbContext.Events.Add(vent);
             _dbContext.SaveChanges();
         }
@@ -71,5 +71,18 @@ namespace PT2.data
                 .Where(e => e.UserId == userId)
                 .ToList<IEvent>();
         }
+        
+        public void removeEvent(int eventId)
+        {
+            if (eventId < 0)
+                throw new ArgumentOutOfRangeException(nameof(eventId), "Event ID cannot be negative.");
+
+            var existingEvent = _dbContext.Events.Find(eventId);
+            if (existingEvent == null)
+                throw new InvalidOperationException($"Event with ID {eventId} not found.");
+
+            _dbContext.Events.Remove(existingEvent);
+            _dbContext.SaveChanges();
     }
+}
 }

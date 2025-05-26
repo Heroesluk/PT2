@@ -17,17 +17,17 @@ CREATE TABLE InventoryState (
 );
 
 CREATE TABLE Events (
-                        EventId INTEGER PRIMARY KEY AUTOINCREMENT,                        EventName NVARCHAR(50) NOT NULL,
-                        Timestamp DATETIME NOT NULL,
-                        UserId INT NOT NULL,
-                        EventDescription NVARCHAR(255),
-                        FOREIGN KEY (UserId) REFERENCES Users(Id)
+                        EventId INTEGER PRIMARY KEY AUTOINCREMENT,                        EventName NVARCHAR(50) ,
+                        Timestamp DATETIME ,
+                        UserId INT,
+                        EventDescription NVARCHAR(255)
 );
 
 CREATE TABLE PurchaseEvents (
                                 EventId INT PRIMARY KEY,
-                                ItemId INT NOT NULL,
-                                Quantity INT NOT NULL,
-                                FOREIGN KEY (EventId) REFERENCES Events(EventId),
-                                FOREIGN KEY (ItemId) REFERENCES Items(Id)
+                                ItemId INT  ,
+                                Quantity INT  
 );
+
+
+

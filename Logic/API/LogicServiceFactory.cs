@@ -37,5 +37,10 @@ namespace PT2.logic
         {
             return new UserService(DataService);
         }
+        
+        public static IEventHistoryService CreateEventHistoryService()
+        {
+            return new EventHistoryService(DataService);
+        }
     }
 }

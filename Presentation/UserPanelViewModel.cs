@@ -3,21 +3,26 @@ using PT2.logic.API;
 
 namespace Presentation;
 
-// UserPanelViewModel.cs
 public class UserPanelViewModel
 {
-    private readonly IInventoryService _inventoryService;
-    private readonly ICatalogService _catalogService;
     public event EventHandler ItemsChanged;
+
+
+    private readonly ICatalogService _catalogService;
+    private readonly IEventHistoryService _eventHistoryService;
+    private readonly IInventoryService _inventoryService;
+
+    public UserPanelViewModel(ICatalogService catalogService, IEventHistoryService eventHistoryService,
+        IInventoryService inventoryService)
+    {
+        _catalogService = catalogService;
+        _eventHistoryService = eventHistoryService;
+        _inventoryService = inventoryService;
+        RefreshItems();
+    }
 
     public List<AvailableItemDto> AvailableItems { get; private set; }
 
-    public UserPanelViewModel(IInventoryService inventoryService, ICatalogService catalogService)
-    {
-        _inventoryService = inventoryService;
-        _catalogService = catalogService;
-        RefreshItems();
-    }
 
     public void BuyItem(int itemId, int quantity)
     {
@@ -27,8 +32,12 @@ public class UserPanelViewModel
             throw new InvalidOperationException("Not enough items in stock.");
         }
 
+        var item = _catalogService.GetItemById(itemId);
+
         _inventoryService.RemoveStock(itemId, quantity);
         RefreshItems();
+        // Log the purchase event
+        _eventHistoryService.AddEvent("BuyItem", 1, $"User {1} bought {quantity} of {item.Name} (ID: {itemId})");
     }
 
     public void RefreshItems()

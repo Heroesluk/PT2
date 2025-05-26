@@ -13,7 +13,7 @@ namespace PT2.logic
             public string EventName { get; set; }
             public DateTime Timestamp { get; set; }
             public int UserId { get; set; }
-            public string EventDesciription { get; set; }
+            public string EventDescription { get; set; }
         }
         
         
@@ -58,11 +58,27 @@ namespace PT2.logic
                 EventName = eventName,
                 Timestamp = DateTime.UtcNow,
                 UserId = userId,
-                EventDesciription = eventDescription
+                EventDescription = eventDescription
             };
-            Console.WriteLine($"Event Logged: Name={eventDto.EventName}, UserId={eventDto.UserId}, Description={eventDto.EventDesciription}, Timestamp={eventDto.Timestamp}");
+            Console.WriteLine($"Event Logged: Name={eventDto.EventName}, UserId={eventDto.UserId}, Description={eventDto.EventDescription}, Timestamp={eventDto.Timestamp}");
 
             _dataService.eventRepo.AddEvent(eventDto);
+        }
+        
+        public void DeleteEvent(int eventId)
+        {
+            if (eventId < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(eventId), "Event ID cannot be negative.");
+            }
+
+            var existingEvent = _dataService.eventRepo.GetEvent(eventId);
+            if (existingEvent == null)
+            {
+                throw new InvalidOperationException($"Event with ID {eventId} not found.");
+            }
+
+            _dataService.eventRepo.removeEvent(eventId);
         }
 
         

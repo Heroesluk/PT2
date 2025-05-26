@@ -53,6 +53,7 @@ namespace PT2.logic
         public void RemoveItemFromCatalog(int itemId)
         {
             _dataService.itemRepo.DeleteItem(itemId);
+            
         }
     }
 }

@@ -9,10 +9,10 @@ public partial class UserPanelForm : Form
     private readonly UserPanelViewModel _viewModel;
     private List<PurchasedItem> _purchasedItems;
 
-    public UserPanelForm(IInventoryService inventoryService, ICatalogService catalogService)
+    public UserPanelForm(IInventoryService inventoryService, ICatalogService catalogService, IEventHistoryService eventHistoryService)
     {
         InitializeComponent();
-        _viewModel = new UserPanelViewModel(inventoryService, catalogService);
+        _viewModel = new UserPanelViewModel( catalogService, eventHistoryService,inventoryService);
         _viewModel.ItemsChanged += ViewModel_ItemsChanged;
         _purchasedItems = new List<PurchasedItem>();
         SetupDataGrids();
@@ -113,7 +113,8 @@ public partial class UserPanelForm : Form
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Error: {ex.Message}\n{ex.InnerException?.Message}");
+                // MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

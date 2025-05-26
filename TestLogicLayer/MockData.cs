@@ -26,7 +26,7 @@ internal class MockEvent : IEvent
     public string EventName { get; set; }
     public DateTime Timestamp { get; set; }
     public int UserId { get; set; }
-    public string EventDesciription { get; set; }
+    public string EventDescription { get; set; }
 
     public MockEvent(int eventId, string eventName, DateTime timestamp, int userId, string description)
     {
@@ -34,7 +34,7 @@ internal class MockEvent : IEvent
         EventName = eventName;
         Timestamp = timestamp;
         UserId = userId;
-        EventDesciription = description;
+        EventDescription = description;
     }
 }
 
@@ -69,7 +69,7 @@ internal class MockPurchaseEvent : IEvent, IPurchaseEvent
     public string EventName { get; set; }
     public DateTime Timestamp { get; set; }
     public int UserId { get; set; }
-    public string EventDesciription { get; set; }
+    public string EventDescription { get; set; }
 }
 
 internal class MockUser : IUser

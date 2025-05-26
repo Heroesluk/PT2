@@ -11,5 +11,9 @@
         List<IEvent> GetEventsByType(string name);
 
         List<IEvent> GetEventsByUserId(int userId);
+        
+        public void removeEvent(int eventId);
+
+        
     }
 }

@@ -11,28 +11,25 @@ namespace PT2.data
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EventId { get; set; }
 
-        [Required]
         [MaxLength(50)]
         public string EventName { get; set; }
 
-        [Required]
         public DateTime Timestamp { get; set; }
 
-        [Required]
         public int UserId { get; set; }
 
         [MaxLength(255)]
-        public string EventDesciription { get; set; }
+        public string EventDescription { get; set; }
 
         public Event() { } // Required for EF Core
 
-        public Event(int eventId, string eventName, DateTime timestamp, int userId, string eventDesciription)
+        public Event(int eventId, string eventName, DateTime timestamp, int userId, string eventDescription)
         {
             EventId = eventId;
             EventName = eventName;
             Timestamp = timestamp;
             UserId = userId;
-            EventDesciription = eventDesciription;
+            EventDescription = eventDescription;
         }
 
         public Event(IEvent evt)
@@ -41,12 +38,12 @@ namespace PT2.data
             EventName = evt.EventName;
             Timestamp = evt.Timestamp;
             UserId = evt.UserId;
-            EventDesciription = evt.EventDesciription;
+            EventDescription = evt.EventDescription;
         }
 
         public override string ToString()
         {
-            return $"EventId: {EventId}, EventName: {EventName}, Timestamp: {Timestamp}, UserId: {UserId}, Description: {EventDesciription}";
+            return $"EventId: {EventId}, EventName: {EventName}, Timestamp: {Timestamp}, UserId: {UserId}, Description: {EventDescription}";
         }
     }
 }

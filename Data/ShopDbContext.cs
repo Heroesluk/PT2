@@ -20,7 +20,7 @@ namespace Data
             var projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, "..", "..", "..", ".."));
             var dbPath = Path.Combine(projectRoot, "Data", "data.db");
 
-            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+            optionsBuilder.UseSqlite($"Data Source={dbPath}").LogTo(Console.WriteLine);;
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)

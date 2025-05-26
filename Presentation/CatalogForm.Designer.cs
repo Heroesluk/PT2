@@ -11,6 +11,7 @@ namespace PT2.Presentation
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.Button buttonUpdate;
+        
         private System.Windows.Forms.Label labelHeader;
 
         private void InitializeComponent()

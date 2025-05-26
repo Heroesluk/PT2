@@ -8,10 +8,10 @@ namespace PT2.Presentation
     {
         private readonly CatalogViewModel _viewModel;
 
-        public CatalogForm(ICatalogService catalogService)
+        public CatalogForm(ICatalogService catalogService, IEventHistoryService eventHistoryService)
         {
             InitializeComponent();
-            _viewModel = new CatalogViewModel(catalogService);
+            _viewModel = new CatalogViewModel(catalogService, eventHistoryService);
             _viewModel.ItemsChanged += ViewModel_ItemsChanged;
 
             // Add columns to grid
@@ -62,8 +62,7 @@ namespace PT2.Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
+                MessageBox.Show($"Error: {ex.Message}\n{ex.InnerException?.Message}");            }
         }
 
         private void buttonRemove_Click(object sender, EventArgs e)
@@ -90,8 +89,7 @@ namespace PT2.Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
+                MessageBox.Show($"Error: {ex.Message}\n{ex.InnerException?.Message}");            }
         }
 
         private void buttonUpdate_Click(object sender, EventArgs e)
@@ -158,8 +156,7 @@ namespace PT2.Presentation
             }
             catch (Exception ex)
             {
-                MessageBox.Show($"Error: {ex.Message}");
-            }
+                MessageBox.Show($"Error: {ex.Message}\n{ex.InnerException?.Message}");            }
         }
 
         private void ClearInputs()

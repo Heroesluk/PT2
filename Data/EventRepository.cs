@@ -70,4 +70,9 @@ internal class EventRepository : IEventRepository
         }
         ).ToList();
     }
+
+    public void removeEvent(int eventId)
+    {
+        throw new NotImplementedException();
+    }
 }
