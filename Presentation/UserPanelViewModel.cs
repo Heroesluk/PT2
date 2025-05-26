@@ -3,7 +3,7 @@ using PT2.logic.API;
 
 namespace Presentation;
 
-public class UserPanelViewModel
+internal class UserPanelViewModel
 {
     public event EventHandler ItemsChanged;
 
@@ -11,6 +11,16 @@ public class UserPanelViewModel
     private readonly IEventHistoryService _eventHistoryService;
     private readonly IInventoryService _inventoryService;
 
+    internal class AvailableItemDtoPres
+    {
+        public int ItemId { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public float Price { get; set; }
+        public int AvailableQuantity { get; set; }
+    }
+    
+    
     public UserPanelViewModel(ICatalogService catalogService, IEventHistoryService eventHistoryService,
         IInventoryService inventoryService)
     {
@@ -20,7 +30,7 @@ public class UserPanelViewModel
         RefreshItems();
     }
 
-    public List<AvailableItemDto> AvailableItems { get; private set; }
+    public List<AvailableItemDtoPres> AvailableItems { get; private set; }
 
 
     public void BuyItem(int itemId, int quantity)
@@ -42,7 +52,7 @@ public class UserPanelViewModel
     public void RefreshItems()
     {
         var allItems = _catalogService.GetAllItems();
-        AvailableItems = allItems.Select(item => new AvailableItemDto
+        AvailableItems = allItems.Select(item => new AvailableItemDtoPres
         {
             ItemId = item.Id,
             Name = item.Name,

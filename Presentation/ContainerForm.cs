@@ -3,7 +3,7 @@ using PT2.Presentation;
 namespace Presentation;
 
 // ContainerForm.cs
-public partial class ContainerForm : Form
+internal class ContainerForm : Form
 {
     private readonly CatalogForm _catalogForm;
     private readonly UserPanelForm _userPanelForm;

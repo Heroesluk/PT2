@@ -3,7 +3,7 @@ using PT2.data.API;
 namespace PT2.Logic
 
 {
-    public class PurchaseEventDto: IEvent
+    internal class PurchaseEventDto: IEvent
     {
         public int ItemId { get; set; }
         public int Quantity { get; set; }

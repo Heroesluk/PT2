@@ -4,7 +4,7 @@ using PT2.logic.API;
 
 namespace PT2.logic
 {
-    public class PurchaseService : IPurchaseService
+    internal class PurchaseService : IPurchaseService
     {
         //private IUserRepository _userRepository;
         //private IItemRepository _itemRepository;

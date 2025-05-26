@@ -3,7 +3,7 @@ using PT2.logic.API;
 
 namespace PT2.logic
 {
-    public class UserService : IUserService
+    internal class UserService : IUserService
     {
         //private IUserRepository _userRepository;
         private IDataService _dataService;

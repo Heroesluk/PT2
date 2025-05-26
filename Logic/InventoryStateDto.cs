@@ -2,7 +2,7 @@ using PT2.data.API;
 
 namespace Logic;
 
-public class InventoryStateDto: IInventoryState
+internal class InventoryStateDto: IInventoryState
 {
     public InventoryStateDto(int itemId, int quantity)
     {

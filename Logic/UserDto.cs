@@ -3,7 +3,7 @@ using PT2.data.API;
 
 namespace PT2.logic
 {
-    public class UserDto: IUser
+    internal class UserDto: IUser
     {
         public int Id { get; set; }
         public string Username { get; set; }

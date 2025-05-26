@@ -4,7 +4,7 @@ using PT2.logic.API;
 
 namespace PT2.logic
 {
-    public class EventHistoryService : IEventHistoryService
+    internal class EventHistoryService : IEventHistoryService
     {
         
         internal class EventDto : IEvent

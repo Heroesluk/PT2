@@ -4,7 +4,7 @@ using PT2.logic.API;
 
 namespace Presentation;
 
-public partial class UserPanelForm : Form
+internal partial class UserPanelForm : Form
 {
     private readonly UserPanelViewModel _viewModel;
     private List<PurchasedItem> _purchasedItems;

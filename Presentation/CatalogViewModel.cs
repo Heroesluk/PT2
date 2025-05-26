@@ -2,7 +2,7 @@ using Presentation;
 using PT2.data.API;
 using PT2.logic.API;
 
-public class CatalogViewModel
+internal class CatalogViewModel
 {
     private readonly ICatalogService _catalogService;
     private readonly IEventHistoryService _eventHistoryService;

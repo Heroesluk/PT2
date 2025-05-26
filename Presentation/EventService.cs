@@ -1,6 +1,6 @@
 namespace Presentation;
 
-public static class EventService
+internal static class EventService
 {
     public static event EventHandler<EventArgs> CatalogChanged;
 

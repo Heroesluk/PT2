@@ -1,7 +1,7 @@
 // UserPanelForm.Designer.cs
 namespace Presentation;
 
-partial class UserPanelForm
+internal partial class UserPanelForm
 {
     private System.ComponentModel.IContainer components = null;
     private System.Windows.Forms.DataGridView dataGridViewAvailable;

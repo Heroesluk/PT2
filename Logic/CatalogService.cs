@@ -3,7 +3,7 @@ using PT2.logic.API;
 
 namespace PT2.logic
 {
-    public class CatalogService : ICatalogService
+    internal class CatalogService : ICatalogService
     {
         private readonly IDataService _dataService;
         private readonly IInventoryService _inventoryService;

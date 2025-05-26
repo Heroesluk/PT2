@@ -1,7 +1,7 @@
 namespace Logic;
 
 // AvailableItemDto.cs
-public class AvailableItemDto
+internal class AvailableItemDto
 {
     public int ItemId { get; set; }
     public string Name { get; set; }

@@ -4,7 +4,7 @@ using PT2.logic.API;
 
 namespace PT2.logic
 {
-    public class InventoryService : IInventoryService
+    internal class InventoryService : IInventoryService
     {
         //private IInventoryStateRepository _inventoryStateRepository;
         private IDataService _dataService;

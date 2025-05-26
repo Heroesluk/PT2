@@ -2,7 +2,7 @@ using Presentation;
 using PT2.logic;
 using PT2.Presentation;
 
-static class Program
+internal static class Program
 {
     [STAThread]
     static void Main()

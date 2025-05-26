@@ -2,7 +2,7 @@
 
 namespace PT2.logic
 {
-    public class ShopService : IShopService
+    internal class ShopService : IShopService
     {
         //private readonly IUserRepository _userRepository;
         //private readonly IItemRepository _itemRepository;

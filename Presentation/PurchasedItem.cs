@@ -1,7 +1,7 @@
 namespace Presentation;
 
 // PurchasedItem.cs
-public class PurchasedItem
+internal class PurchasedItem
 {
     public int ItemId { get; }
     public string Name { get; }

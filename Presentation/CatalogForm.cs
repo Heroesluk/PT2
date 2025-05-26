@@ -4,7 +4,7 @@ using PT2.logic.API;
 
 namespace PT2.Presentation
 {
-    public partial class CatalogForm : Form
+    internal partial class CatalogForm : Form
     {
         private readonly CatalogViewModel _viewModel;
 

@@ -3,7 +3,7 @@ using PT2.data.API;
 namespace PT2.logic
 
 {
-    public class ItemDto: IItem
+    internal class ItemDto: IItem
     {
         public int Id { get; set; }
         public string Name { get; set; }
