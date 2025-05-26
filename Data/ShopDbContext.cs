@@ -29,7 +29,7 @@ namespace Data
 
             optionsBuilder.UseSqlite(connectionString).LogTo(Console.WriteLine);
         }
-        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -59,7 +59,7 @@ namespace Data
                 .WithMany()
                 .HasForeignKey(pe => pe.ItemId);
         }
-        
+
 
         public void EnsureSchemaCreated()
         {
@@ -68,9 +68,20 @@ namespace Data
                 if (!Database.CanConnect())
                 {
                     Database.EnsureCreated();
-                    var sql = File.ReadAllText("schema.sql");
+
+                    var baseDirectory = AppContext.BaseDirectory;
+                    var projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, "..", "..", "..", ".."));
+                    var schemaPath = Path.Combine(projectRoot, "schema.sql");
+
+                    if (!File.Exists(schemaPath))
+                    {
+                        throw new FileNotFoundException($"Schema file not found at path: {schemaPath}");
+                    }
+
+                    var sql = File.ReadAllText(schemaPath);
                     Database.ExecuteSqlRaw(sql);
                 }
+
                 _initialized = true;
             }
         }
