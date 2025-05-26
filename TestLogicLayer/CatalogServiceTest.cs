@@ -11,7 +11,8 @@ namespace TestLogicLayer
         public void AddItemToCatalog_ValidItem_ShouldAddSuccessfully()
         {
             var fakeDataService = new FakeDataService();
-            var catalogService = new CatalogService(fakeDataService);
+            var inventoryService = new InventoryService(fakeDataService);
+            var catalogService = new CatalogService(fakeDataService, inventoryService);
             int itemId = 0;
             string name = "Test Item";
             string description = "Test Description";
@@ -30,7 +31,8 @@ namespace TestLogicLayer
         public void AddItemToCatalog_NegativePrice_ShouldThrowException()
         {
             var fakeDataService = new FakeDataService();
-            var catalogService = new CatalogService(fakeDataService);
+            var inventoryService = new InventoryService(fakeDataService);
+            var catalogService = new CatalogService(fakeDataService, inventoryService);
 
             catalogService.AddItemToCatalog(1, "Test Item", "Test Description", -5.0f);
         }
@@ -39,7 +41,8 @@ namespace TestLogicLayer
         public void GetItemById_ExistingItem_ShouldReturnItem()
         {
             var fakeDataService = new FakeDataService();
-            var catalogService = new CatalogService(fakeDataService);
+            var inventoryService = new InventoryService(fakeDataService);
+            var catalogService = new CatalogService(fakeDataService, inventoryService);
             var item = new MockItem(0, "Test Item", "Test Description", 10.0f);;
             fakeDataService.itemRepo.AddItem(item);
 

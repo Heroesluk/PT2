@@ -1,6 +1,7 @@
 using Data.API;
 using Microsoft.EntityFrameworkCore;
 using PT2.data;
+using System;
 
 namespace Data
 {
@@ -15,7 +16,12 @@ namespace Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite("Data Source=C:/Users/Lucas/RiderProjects/PT2/Data/data.db");        }
+            var baseDirectory = AppContext.BaseDirectory;
+            var projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, "..", "..", "..", ".."));
+            var dbPath = Path.Combine(projectRoot, "Data", "data.db");
+
+            optionsBuilder.UseSqlite($"Data Source={dbPath}");
+        }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

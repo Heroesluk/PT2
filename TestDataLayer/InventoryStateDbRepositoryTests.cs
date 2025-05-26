@@ -21,8 +21,8 @@ namespace TestDataLayer
             _repository = new InventoryStateDbRepository(_dbContext);
 
             // Seed data
-            _dbContext.Inventory.Add(new InventoryState { ItemId = 1, Quantity = 10 });
-            _dbContext.Inventory.Add(new InventoryState { ItemId = 2, Quantity = 20 });
+            _dbContext.Inventory.Add(new InventoryState(1, 10));
+            _dbContext.Inventory.Add(new InventoryState(2, 20));
             _dbContext.SaveChanges();
         }
 
@@ -36,7 +36,7 @@ namespace TestDataLayer
         [TestMethod]
         public void AddInventoryState_ValidState_AddsSuccessfully()
         {
-            var newState = new InventoryState { ItemId = 3, Quantity = 30 };
+            var newState = new InventoryState(3, 30);
 
             _repository.AddInventoryState(newState);
 
@@ -49,7 +49,7 @@ namespace TestDataLayer
         [ExpectedException(typeof(InvalidOperationException))]
         public void AddInventoryState_DuplicateItemId_ThrowsException()
         {
-            var duplicateState = new InventoryState { ItemId = 1, Quantity = 15 };
+            var duplicateState = new InventoryState(1, 15);
 
             _repository.AddInventoryState(duplicateState);
         }
@@ -87,7 +87,7 @@ namespace TestDataLayer
             _repository.RemoveInventoryState(1);
 
             var result = _repository.GetInventoryState(1);
-            Assert.AreEqual(result.Quantity, 0);
+            Assert.IsNull(result);
         }
 
         [TestMethod]
