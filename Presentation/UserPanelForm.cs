@@ -70,12 +70,11 @@ public partial class UserPanelForm : Form
             var selectedRow = dataGridViewAvailable.SelectedRows[0];
             int itemId = (int)selectedRow.Cells["ItemId"].Value;
 
-            // Fetch item details from ViewModel
             var selectedItem = _viewModel.AvailableItems.FirstOrDefault(item => item.ItemId == itemId);
             if (selectedItem != null)
             {
-                // Update Detail view
                 textBoxDescription.Text = selectedItem.Description;
+                textBoxQuantity.Text = $"Quantity left: {selectedItem.AvailableQuantity}";
             }
         }
     }

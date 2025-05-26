@@ -9,22 +9,32 @@ partial class UserPanelForm
     private System.Windows.Forms.Label labelAvailable;
     private System.Windows.Forms.Label labelPurchased;
     private System.Windows.Forms.TextBox textBoxDescription;
+    private System.Windows.Forms.TextBox textBoxQuantity;
 
     private void InitializeComponent()
     {
         this.textBoxDescription = new System.Windows.Forms.TextBox();
+        this.textBoxQuantity = new System.Windows.Forms.TextBox();
+
         this.SuspendLayout();
 
-        // textBoxDescription
         this.textBoxDescription.Location = new System.Drawing.Point(610, 100);
         this.textBoxDescription.Multiline = true;
         this.textBoxDescription.Name = "textBoxDescription";
         this.textBoxDescription.ReadOnly = true;
-        this.textBoxDescription.Size = new System.Drawing.Size(150, 200);
+        this.textBoxDescription.Size = new System.Drawing.Size(150, 100);
         this.textBoxDescription.TabIndex = 1;
         this.textBoxDescription.BackColor = System.Drawing.Color.LightGray;
 
-        // Add to form
+        this.textBoxQuantity.Location = new System.Drawing.Point(610, 200);
+        this.textBoxQuantity.Multiline = true;
+        this.textBoxQuantity.Name = "textBoxDescription";
+        this.textBoxQuantity.ReadOnly = true;
+        this.textBoxQuantity.Size = new System.Drawing.Size(150, 100);
+        this.textBoxQuantity.TabIndex = 1;
+        this.textBoxQuantity.BackColor = System.Drawing.Color.Cornsilk;
+        
+        this.Controls.Add(this.textBoxQuantity);
         this.Controls.Add(this.textBoxDescription);
 
         this.ResumeLayout(false);
