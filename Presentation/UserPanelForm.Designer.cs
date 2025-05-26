@@ -8,9 +8,29 @@ partial class UserPanelForm
     private System.Windows.Forms.DataGridView dataGridViewPurchased;
     private System.Windows.Forms.Label labelAvailable;
     private System.Windows.Forms.Label labelPurchased;
+    private System.Windows.Forms.TextBox textBoxDescription;
 
     private void InitializeComponent()
     {
+        this.textBoxDescription = new System.Windows.Forms.TextBox();
+        this.SuspendLayout();
+
+        // textBoxDescription
+        this.textBoxDescription.Location = new System.Drawing.Point(610, 100);
+        this.textBoxDescription.Multiline = true;
+        this.textBoxDescription.Name = "textBoxDescription";
+        this.textBoxDescription.ReadOnly = true;
+        this.textBoxDescription.Size = new System.Drawing.Size(150, 200);
+        this.textBoxDescription.TabIndex = 1;
+        this.textBoxDescription.BackColor = System.Drawing.Color.LightGray;
+
+        // Add to form
+        this.Controls.Add(this.textBoxDescription);
+
+        this.ResumeLayout(false);
+        this.PerformLayout();
+        
+        
         this.dataGridViewAvailable = new System.Windows.Forms.DataGridView();
         this.dataGridViewPurchased = new System.Windows.Forms.DataGridView();
         this.labelAvailable = new System.Windows.Forms.Label();

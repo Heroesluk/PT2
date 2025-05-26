@@ -20,13 +20,33 @@ public partial class UserPanelForm : Form
         EventService.CatalogChanged += (s, e) => _viewModel.RefreshItems();
 
     }
-
+    
+    
     private void SetupDataGrids()
     {
         // Available items grid
-        dataGridViewAvailable.AutoGenerateColumns = true;
+        dataGridViewAvailable.AutoGenerateColumns = false;
         dataGridViewAvailable.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
 
+        // Add columns to Master view
+        dataGridViewAvailable.Columns.Add(new DataGridViewTextBoxColumn
+        {
+            DataPropertyName = "ItemId",
+            HeaderText = "ID",
+            Name = "ItemId"
+        });
+        dataGridViewAvailable.Columns.Add(new DataGridViewTextBoxColumn
+        {
+            DataPropertyName = "Name",
+            HeaderText = "Name",
+            Name = "Name"
+        });
+        dataGridViewAvailable.Columns.Add(new DataGridViewTextBoxColumn
+        {
+            DataPropertyName = "Price",
+            HeaderText = "Price",
+            Name = "Price"
+        });
         var buyColumn = new DataGridViewButtonColumn
         {
             Text = "Buy",
@@ -35,11 +55,32 @@ public partial class UserPanelForm : Form
             HeaderText = "Action"
         };
         dataGridViewAvailable.Columns.Add(buyColumn);
+
         dataGridViewAvailable.CellClick += DataGridViewAvailable_CellClick;
+        dataGridViewAvailable.SelectionChanged += DataGridViewAvailable_SelectionChanged;
 
         // Purchased items grid
         dataGridViewPurchased.AutoGenerateColumns = true;
     }
+
+    private void DataGridViewAvailable_SelectionChanged(object sender, EventArgs e)
+    {
+        if (dataGridViewAvailable.SelectedRows.Count > 0)
+        {
+            var selectedRow = dataGridViewAvailable.SelectedRows[0];
+            int itemId = (int)selectedRow.Cells["ItemId"].Value;
+
+            // Fetch item details from ViewModel
+            var selectedItem = _viewModel.AvailableItems.FirstOrDefault(item => item.ItemId == itemId);
+            if (selectedItem != null)
+            {
+                // Update Detail view
+                textBoxDescription.Text = selectedItem.Description;
+            }
+        }
+    }
+    
+    
 
     private void DataGridViewAvailable_CellClick(object sender, DataGridViewCellEventArgs e)
     {
