@@ -27,6 +27,12 @@ public class CatalogViewModel
         RefreshItems();
     }
 
+    public void UpdateItem(int id, string name, string description, float price)
+    {
+        _catalogService.UpdateItemDetails(id, name, description, price);
+        RefreshItems();
+    }
+
     private void RefreshItems()
     {
         Items = _catalogService.GetAllItems();

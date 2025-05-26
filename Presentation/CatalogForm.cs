@@ -1,3 +1,5 @@
+using Microsoft.IdentityModel.Tokens;
+using PT2.data.API;
 using PT2.logic.API;
 
 namespace PT2.Presentation
@@ -85,6 +87,74 @@ namespace PT2.Presentation
                     ClearInputs();
                     MessageBox.Show("Item removed successfully!");
                 }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+        }
+
+        private void buttonUpdate_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (_viewModel.Items == null || _viewModel.Items.Count == 0)
+                {
+                    MessageBox.Show("Nothing to update.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (dataGridViewItems.CurrentRow == null)
+                {
+                    MessageBox.Show("Please select an item to update.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (textBoxName.Text == "" && textBoxDescription.Text == "" && textBoxPrice.Text == "")
+                {
+                    MessageBox.Show("Please enter at least 1 new item value to update.", "Error",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                var selectedItem = dataGridViewItems.CurrentRow.DataBoundItem;
+                var itemId = (int)dataGridViewItems.CurrentRow.Cells["Id"].Value;
+
+                //values from text fields
+                string name = "";
+                string description = "";
+                float price = 0;
+
+                //getting old item values
+                IItem item = _viewModel.Items.First(i => itemId == i.Id);
+
+                if (item != null)
+                {
+                    name = item.Name;
+                    description = item.Description;
+                    price = item.Price;
+                }
+                else
+                {
+                    throw new Exception("Item for update doesn't exist - but is on list");
+                }
+
+                //getting values from text fields if not empty
+                if (textBoxName.Text != "")
+                    name = textBoxName.Text;
+
+                if (textBoxDescription.Text != "")
+                    description = textBoxDescription.Text;
+
+                if (textBoxPrice.Text != "")
+                    price = float.Parse(textBoxPrice.Text);
+
+
+                _viewModel.UpdateItem(itemId, name, description, price);
+                ClearInputs();
+                MessageBox.Show("Item updated successfully!");
             }
             catch (Exception ex)
             {

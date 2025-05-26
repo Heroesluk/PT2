@@ -10,6 +10,7 @@ namespace PT2.Presentation
         private System.Windows.Forms.TextBox textBoxPrice;
         private System.Windows.Forms.Button buttonAdd;
         private System.Windows.Forms.Button buttonRemove;
+        private System.Windows.Forms.Button buttonUpdate;
         private System.Windows.Forms.Label labelHeader;
 
         private void InitializeComponent()
@@ -21,6 +22,7 @@ namespace PT2.Presentation
             this.textBoxPrice = new System.Windows.Forms.TextBox();
             this.buttonAdd = new System.Windows.Forms.Button();
             this.buttonRemove = new System.Windows.Forms.Button();
+            this.buttonUpdate = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).BeginInit();
             this.SuspendLayout();
             
@@ -87,6 +89,14 @@ namespace PT2.Presentation
             this.buttonRemove.UseVisualStyleBackColor = true;
             this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
 
+            // buttonUpdate
+            this.buttonUpdate.Location = new System.Drawing.Point(188, 270);
+            this.buttonUpdate.Size = new System.Drawing.Size(75, 23);
+            this.buttonUpdate.TabIndex = 7;
+            this.buttonUpdate.Text = "Update";
+            this.buttonUpdate.UseVisualStyleBackColor = true;
+            this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
+
             // CatalogForm
             this.ClientSize = new System.Drawing.Size(450, 320);
             this.Controls.Add(this.textBoxId);
@@ -95,6 +105,7 @@ namespace PT2.Presentation
             this.Controls.Add(this.textBoxPrice);
             this.Controls.Add(this.buttonAdd);
             this.Controls.Add(this.buttonRemove);
+            this.Controls.Add(this.buttonUpdate);
             this.Name = "CatalogForm";
             this.Text = "Catalog Management";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewItems)).EndInit();
