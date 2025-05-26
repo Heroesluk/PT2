@@ -7,7 +7,6 @@ public class UserPanelViewModel
 {
     public event EventHandler ItemsChanged;
 
-
     private readonly ICatalogService _catalogService;
     private readonly IEventHistoryService _eventHistoryService;
     private readonly IInventoryService _inventoryService;

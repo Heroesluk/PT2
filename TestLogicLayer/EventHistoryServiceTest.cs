@@ -8,7 +8,6 @@ namespace TestLogicLayer
     public class EventHistoryServiceTests
     {
 
-
         [TestMethod]
         public void GetAllEvents_ShouldReturnAllEvents()
         {

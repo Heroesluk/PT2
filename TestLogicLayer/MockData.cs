@@ -2,7 +2,6 @@ using PT2.data.API;
 
 namespace TestLogicLayer;
 
-
 internal class MockItem : IItem
 {
     public int Id { get; set; }
@@ -49,8 +48,6 @@ internal class MockInventoryState : IInventoryState
         Quantity = quantity;
     }
 }
-
-
 
 
 
