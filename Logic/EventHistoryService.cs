@@ -6,6 +6,17 @@ namespace PT2.logic
 {
     public class EventHistoryService : IEventHistoryService
     {
+        
+        internal class EventDto : IEvent
+        {
+            public int EventId { get; set; }
+            public string EventName { get; set; }
+            public DateTime Timestamp { get; set; }
+            public int UserId { get; set; }
+            public string EventDesciription { get; set; }
+        }
+        
+        
         //private IEventRepository _eventRepository;
         private IDataService _dataService;
 
@@ -29,5 +40,31 @@ namespace PT2.logic
             return _dataService.eventRepo.GetEventsByType("Purchase")
                 .FindAll(e => e is PurchaseEventDto pe && pe.ItemId == itemId);
         }
+        
+        public void AddEvent(String eventName, int userId, string eventDescription)
+        {
+            if (string.IsNullOrWhiteSpace(eventName))
+            {
+                throw new ArgumentException("Event name cannot be null or empty", nameof(eventName));
+            }
+
+            if (string.IsNullOrWhiteSpace(eventDescription))
+            {
+                throw new ArgumentException("Event description cannot be null or empty", nameof(eventDescription));
+            }
+
+            var eventDto = new EventDto
+            {
+                EventName = eventName,
+                Timestamp = DateTime.UtcNow,
+                UserId = userId,
+                EventDesciription = eventDescription
+            };
+            Console.WriteLine($"Event Logged: Name={eventDto.EventName}, UserId={eventDto.UserId}, Description={eventDto.EventDesciription}, Timestamp={eventDto.Timestamp}");
+
+            _dataService.eventRepo.AddEvent(eventDto);
+        }
+
+        
     }
 }

@@ -18,8 +18,13 @@ namespace PT2.data
         {
             if (_event == null)
                 throw new ArgumentNullException(nameof(_event));
-
-            _dbContext.Events.Add((Event)_event);
+            var vent = new Event(
+                _event.EventId,
+                _event.EventName,
+                _event.Timestamp,
+                _event.UserId,
+                _event.EventDesciription);
+            _dbContext.Events.Add(vent);
             _dbContext.SaveChanges();
         }
 

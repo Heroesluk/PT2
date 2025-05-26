@@ -8,5 +8,7 @@ namespace PT2.logic.API
         List<IEvent> GetAllPurchaseEvents();
         List<IEvent> GetUserPurchaseHistory(int userId);
         List<IEvent> GetPurchaseEventsByItemId(int itemId);
+        
+        void AddEvent(string eventName, int userId, string eventDescription);
     }
 }
