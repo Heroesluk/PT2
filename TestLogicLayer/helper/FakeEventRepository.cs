@@ -20,6 +20,11 @@ class FakeEventRepository : IEventRepository
     public List<IEvent> GetEventsByUserId(int userId) =>
         _events.FindAll(e => e.UserId == userId);
 
+    public void removeEvent(int eventId)
+    {
+        throw new NotImplementedException();
+    }
+
     public List<IEvent> GetEventsByType(string type) =>
         _events.FindAll(e => e.GetType().Name == type);
 }

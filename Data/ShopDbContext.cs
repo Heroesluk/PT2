@@ -18,9 +18,16 @@ namespace Data
         {
             var baseDirectory = AppContext.BaseDirectory;
             var projectRoot = Path.GetFullPath(Path.Combine(baseDirectory, "..", "..", "..", ".."));
-            var dbPath = Path.Combine(projectRoot, "Data", "data.db");
+            var envPath = Path.Combine(projectRoot, ".env");
+            DotNetEnv.Env.Load(envPath);
 
-            optionsBuilder.UseSqlite($"Data Source={dbPath}").LogTo(Console.WriteLine);;
+            var connectionString = Environment.GetEnvironmentVariable("DATABASE_CONNECTION_STRING");
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new InvalidOperationException("DATABASE_CONNECTION_STRING is not set in the .env file.");
+            }
+
+            optionsBuilder.UseSqlite(connectionString).LogTo(Console.WriteLine);
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
