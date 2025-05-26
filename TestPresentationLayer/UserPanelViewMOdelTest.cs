@@ -34,6 +34,7 @@ public class UserPanelViewModelTests
         {
             new Mock<IItem>().Object
         };
+
         _mockCatalogService.Setup(s => s.GetAllItems()).Returns(items);
         _mockInventoryService.Setup(s => s.GetItemStock(It.IsAny<int>())).Returns(10);
 
