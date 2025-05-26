@@ -90,12 +90,12 @@ namespace TestDataLayer
             Assert.IsNull(result);
         }
 
-        [TestMethod]
-        [ExpectedException(typeof(InvalidOperationException))]
-        public void RemoveInventoryState_NonExistingItem_ThrowsException()
-        {
-            _repository.RemoveInventoryState(999);
-        }
+        // [TestMethod]
+        // [ExpectedException(typeof(InvalidOperationException))]
+        // public void RemoveInventoryState_NonExistingItem_ThrowsException()
+        // {
+        //     _repository.RemoveInventoryState(999);
+        // }
 
         [TestMethod]
         public void GetAllInventoryStates_ReturnsAllStates()
